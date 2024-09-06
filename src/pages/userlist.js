@@ -9,7 +9,7 @@ const UserList = () => {
     return (
       <>
         <Suspense fallback = {<p>Loading...</p>}>
-          <Users/>;
+          <Users/>
         </Suspense>
       </>
     );

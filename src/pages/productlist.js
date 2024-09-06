@@ -8,7 +8,7 @@ const ProductList = () => {
   return (
     <>
       <Suspense fallback = {<p>Loading...</p>}>
-        <Products/>;
+        <Products/>
       </Suspense>
     </>
   );

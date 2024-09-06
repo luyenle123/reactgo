@@ -9,7 +9,7 @@ const CartPage = () => {
     return (
         <>
           <Suspense fallback = {<p>Loading...</p>}>
-            <CartPageDetail/>;
+            <CartPageDetail/>
           </Suspense>
         </>
       );
