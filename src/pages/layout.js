@@ -1,14 +1,13 @@
 import '../styles/layout.css';
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Cart } from '../components/CartPage/cart'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as constants from '../constants/constant.js'
 import { Loader } from '../components/Loader/loader.js';
 import { IsLogin } from '../services/userService.js';
 import Footer from '../components/Footer/footer.js';
 
 const Layout = () => {
-    //const[isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
 
     var isLogin = false;
