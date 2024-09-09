@@ -51,24 +51,24 @@ const handleKeyDown = (event) => {
   }
 }
 
-const isOk  = user => {
-  return (
-    user.age > 20 && 
-    user.name === 'abc' && 
-    user.email === 'abc@gmail.com'
-  );
-}
+// const isOk  = user => {
+//   return (
+//     user.age > 20 && 
+//     user.name === 'abc' && 
+//     user.email === 'abc@gmail.com'
+//   );
+// }
 
-const codelist = new Map([
-  ['100', 'Continue'],
-  ['200', 'OK'],
-  ['201', 'Accepted'],
-  ['default', 'No Code']
-]);
+// const codelist = new Map([
+//   ['100', 'Continue'],
+//   ['200', 'OK'],
+//   ['201', 'Accepted'],
+//   ['default', 'No Code']
+// ]);
 
-const GetCode = code => {
-  console.log(codelist.get(code) || codelist.get('default'));
-}
+// const GetCode = code => {
+//   console.log(codelist.get(code) || codelist.get('default'));
+// }
 
   return (
     <div className='search-page-container'>

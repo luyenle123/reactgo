@@ -22,7 +22,7 @@ const Layout = () => {
         isLogin = IsLogin();
     }
 
-    console.log('>> render layout');
+    //console.log('>> render layout');
     
     const mainContainerClass = isLogin ? 'main-container' : 'main-container-login';
 

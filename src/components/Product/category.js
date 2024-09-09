@@ -8,12 +8,12 @@ const Category = ({handleClick, productCount}) => {
     const [cateories, setCateories] = useState([]);
     const [categorySelected, setCategorySelected] = useState();
 
-    console.log('>> render category: ' + productCount);
+    //console.log('>> render category: ' + productCount);
   
     const notify = (msg) => toast(msg);       
       
     const doFetchCategory = async () => {
-        console.log('>> fetch category via api');        
+        //console.log('>> fetch category via api');        
         var res = await GetCategoryList();
         if(res.isSuccess)
         {
@@ -25,7 +25,7 @@ const Category = ({handleClick, productCount}) => {
     }
     
     useEffect(() => {
-        console.log('>> render category: useEffect');        
+        //console.log('>> render category: useEffect');        
         doFetchCategory();
     }, []);
 

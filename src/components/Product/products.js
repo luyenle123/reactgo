@@ -5,16 +5,16 @@ import { toast } from 'react-toastify';
 import { DoAddToCart,UpdateCartInfo } from "../CartPage/cart.js";
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { LoaderToggle } from "../Loader/loader.js";
-import { Pagination, GetConfig } from '../Pagination/pagination.js'
+import { Pagination, GetConfig, CloneConfig } from '../Pagination/pagination.js'
 import { GetProductList,GetCategoryProduct } from '../../services/productService.js';
 import { useNavigate } from "react-router-dom";
 import * as constants from '../../constants/constant.js'
 import { Category, UpdateCategoryProductCount } from './category.js';
 
 export default function Products(){
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(undefined);
     const [pageinfo, setPageInfo] = useState({pageSize:8, sorting:1});
-    const [gotData, setgotData] = useState(false);
+    //const [gotData, setgotData] = useState(false);
     const [categorySelected, setCategorySelected] = useState();
 
     var fetchProduct = false;
@@ -22,7 +22,7 @@ export default function Products(){
     //const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    console.log('>> render Products');
+    //console.log('>> render Products');
   
     const notify = (msg) => toast(msg);    
 
@@ -50,13 +50,12 @@ export default function Products(){
         {
             setProducts(res.data.products);
             setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));
-            setgotData(true);
+            //setgotData(true);
             setCategorySelected(undefined);
         }
         else{
             notify('Error: ' + res.data);
         }
-        //setIsLoading(false);
         LoaderToggle(false);
     }
 
@@ -70,7 +69,7 @@ export default function Products(){
     };
 
     const handleSortingChanged = (e) => {
-        console.log(e.target.value);
+        //console.log(e.target.value);
         var sortType = parseInt(e.target.value);
         var obj = pageinfo;
         obj.sorting = sortType;
@@ -99,13 +98,11 @@ export default function Products(){
     };
 
     const updateStatus = (b) => {
-        //setIsLoading(false);
         LoaderToggle(false);
         UpdateCartInfo(null, 1);
     }
 
     const handleAddToCartClick = (e) => {
-        //setIsLoading(true);
         LoaderToggle(true);
         var productId = parseInt(e.target.value);
         DoAddToCart(productId, e.target.attributes['sku'].value, updateStatus);
@@ -120,6 +117,11 @@ export default function Products(){
         queryData(1);
     }, []);
 
+    if(!products){
+        return(<></>);
+    }
+
+    const gotData = products ? true : false;
     const config = GetConfig(false, gotData, pageinfo);
     config.handlePaginationNumberClick = handlePaginationNumberClick;
     config.handleBackClick = handleBackClick;
@@ -128,8 +130,9 @@ export default function Products(){
     config.handleItemDisplayChanged = handleItemDisplayChanged;
     config.handleSortingChanged = handleSortingChanged;
     config.handlePdpBlick = handlePdpBlick;
+    config.hideSortOption = true;
 
-    // const listProduct = useCallback(() => <ListProduct />, []);    
+    //const config1 = CloneConfig(config);
 
     const FetCategoryProduct = async (category, page) => {
         LoaderToggle(true);
@@ -140,7 +143,7 @@ export default function Products(){
         {
             setProducts(res.data.products);
             setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));
-            setgotData(true);
+            //setgotData(true);
             setCategorySelected(category);
             UpdateCategoryProductCount(res.data.total)            
         }
@@ -174,8 +177,6 @@ export default function Products(){
                 </div>
                 <div className='column right'>
                     <div className='product-container'>
-                    {/* {products.length <= 0 && <button onClick={handleFetchProductClick}>refresh</button>} */}
-
                     <ProductList config={config} products={products}/>
                     </div> 
                 </div>
@@ -185,7 +186,7 @@ export default function Products(){
 }
 
 export function  ProductList(props) {
-    console.log('>> render ProductList');
+    //console.log('>> render ProductList');
     if(props.products.length <= 0)
     {
         return(
@@ -198,36 +199,43 @@ export function  ProductList(props) {
             </div>
         );
     }
+    const config1 = CloneConfig(props.config);
+    config1.hideDisplayPageInfo = true;
+    config1.hideDisplayOption = true;
+    config1.hideSortOption = true;
   return (        
         <div className="product-list-container">
-            {props.config.hasData && <Pagination config={props.config}/>}
+            {props.products && props.products.length > 0 && <Pagination config={props.config}/>}
             <div className="product-flex">
                 {props.products.map((p) => {
                     return <ProductItem key = {p.id} product = {p} handleAddToCartClick={props.config.handleAddToCartClick}/>
                 })}
             </div>
+            {props.products && props.products.length > 0 && <Pagination config={config1}/>}
         </div>    
   )
 };
 
 export function ProductItem(props){
     return(
-        <div className="product-card"> 
-                <div className="product-img">
-                    <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
-                        <img className='product-image' src={props.product.thumbnail} alt={props.product.title}/>
-                    </a>
-                </div>
+        <div className='product-card-container'>
+            <div className="product-card"> 
+                    <div className="product-img">
+                        <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
+                            <img className='product-image' src={props.product.thumbnail} alt={props.product.title}/>
+                        </a>
+                    </div>
 
-                <p className="product-title">{props.product.title}</p>
-                <p className="product-sku">{props.product.sku}</p>
-                <p className="product-description">{props.product.description}</p>
-                <p className="product-stock">{props.product.availabilityStatus} ({props.product.stock})</p>
-                <p className="product-price">{props.product.price} $</p>
+                    <p className="product-title">{props.product.title}</p>
+                    <p className="product-sku">{props.product.sku}</p>
+                    <p className="product-description">{props.product.description}</p>
+                    <p className="product-stock">{props.product.availabilityStatus} ({props.product.stock})</p>
+                    <p className="product-price">{props.product.price} $</p>
 
-                <div className="product-card-buttons">
-                    <button className="add-to-cart-button" onClick={props.handleAddToCartClick} value={props.product.id} sku={props.product.sku} price={props.product.price}>Add To Cart</button>
-                </div>
+                    <div className="product-card-buttons">
+                        <button className="add-to-cart-button" onClick={props.handleAddToCartClick} value={props.product.id} sku={props.product.sku} price={props.product.price}>Add To Cart</button>
+                    </div>
+            </div>
         </div>
     );
 }

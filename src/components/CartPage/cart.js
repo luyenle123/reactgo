@@ -36,7 +36,7 @@ export const Cart = () => {
   //const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  console.log('Cart Info');
+  //console.log('Cart Info');
 
   var res = null;
   const doGetCartDetail = async() => {

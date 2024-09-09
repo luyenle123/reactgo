@@ -17,7 +17,7 @@
 }
 
 .right {
-  
+  width: 100%;
 }
 
 .product-container{
@@ -41,22 +41,23 @@
   }
 }
 
-.product-card {
-    margin: 0 1rem 2rem 1rem;
+.product-card-container{
+  width: 24%;
+  /* height: 400px; */
+  position: relative;
+
+  .product-card {
     text-align: center;
-  
-    padding: 10px;
-    margin: 10px 10px;
     border: solid 1px #ccc;
     border-radius: 5px;
-    width: 350px;
     height: 400px;
     position: relative;
+    margin: 4px;
+    padding: 8px;
 
     .product-img{
       height: 200px;
       position: relative;
-      /* border: solid 1px #f3f3f3; */
       border-radius: 5px;
 
       img{
@@ -120,4 +121,6 @@
         background-color: rgb(226, 229, 231);
       }      
     }    
+}  
 }
+

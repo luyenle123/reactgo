@@ -24,6 +24,23 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
     } 
 }
 
+export const CloneConfig = (config) => {
+    return {
+        isLoading: config.isLoading,
+        pageInfo: config.pageInfo,
+        hasData: config.hasData,
+        hideSortOption: config.hideSortOption,
+        hideDisplayOption: config.hideDisplayOption,
+        hideDisplayPageInfo: config.hideDisplayPageInfo,
+        handlePaginationNumberClick: config.handlePaginationNumberClick,
+        handleBackClick:config.handleBackClick,
+        handleNextClick:config.handleNextClick,
+        handleAddToCartClick:config.handleAddToCartClick,
+        handleItemDisplayChanged: config.handleItemDisplayChanged,
+        handleSortingChanged: config.handleSortingChanged
+    } 
+}
+
 export const Pagination = ({config}) => {
     //console.log('Pagination');
 

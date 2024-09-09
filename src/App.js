@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import SearchPage from './pages/search.js';
 
 export default function App() {
-  console.log('App');
+  //console.log('App');
   return (
     <>
       <ToastContainer autoClose={1000}/>    
