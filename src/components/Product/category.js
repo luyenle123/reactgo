@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GetCategoryList } from '../../services/productService.js';
 
 import '../../styles/category.css';
@@ -12,8 +12,7 @@ const Category = ({handleClick, productCount}) => {
   
     const notify = (msg) => toast(msg);       
       
-    const doFetchCategory = async () => {
-        //console.log('>> fetch category via api');        
+    const doFetchCategory = async () => {     
         var res = await GetCategoryList();
         if(res.isSuccess)
         {
@@ -24,8 +23,7 @@ const Category = ({handleClick, productCount}) => {
         }
     }
     
-    useEffect(() => {
-        //console.log('>> render category: useEffect');        
+    useEffect(() => {     
         doFetchCategory();
     }, []);
 
@@ -55,15 +53,6 @@ const Category = ({handleClick, productCount}) => {
         {cateories && cateories.length > 0 && 
             <div className='category-list-container'>
                 {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
-                {/* {cateories.map((p, i) => {
-                        return (<>
-                                {categorySelected && categorySelected === p ? 
-                                <CategoryItem key = {i} category = {p} categorySelected={categorySelected}/> 
-                                :
-                                <CategoryItem key = {i} category = {p} categoryHandleClick = {() => handleCategoryClick(p)} categorySelected={categorySelected}/>
-                            }
-                        </>)
-                    })} */}
             </div>
         }
     </div>

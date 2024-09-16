@@ -1,11 +1,11 @@
-import { Clock } from '../components/DEMO/Clock.js';
+// import { Clock } from '../components/DEMO/Clock.js';
 
 // import { Accordion } from '../components/DEMO/Accordion.js';
 // import { SyncedInputs } from '../components/DEMO/SyncedInputs.js';
 import {MemoTest} from '../components/DEMO/Memo/test.js';
-import { Parent } from '../components/DEMO/UC/parent.js';
+// import { Parent } from '../components/DEMO/UC/parent.js';
 import ProductList from '../components/DEMO/UC/productList.js';
-import { Garage } from '../components/DEMO/UC/proptest.js';
+// import { Garage } from '../components/DEMO/UC/proptest.js';
 import { Counter } from '../components/DEMO/UE/counter.js';
 
 const OtherPage = () => {

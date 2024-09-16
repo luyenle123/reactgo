@@ -1,12 +1,14 @@
-import React from 'react'
-import { Search } from '../components/Search/search'
+import React, { Suspense } from 'react'
+// import { Search } from '../components/Search/search'
 
-// import { Search } from '../components/Search/search.js'
+const Search = React.lazy(() => import('../components/Search/search.js'));
 
 export default function SearchPage(){
   return (
     <>
-        <Search/>
+      <Suspense>
+          <Search/>
+      </Suspense>
     </>
   )
 }

@@ -1,7 +1,13 @@
-import { ProductDetail } from '../components/Product/productDetail.js';
+import React, { Suspense } from 'react';
+
+const ProductDetail = React.lazy(() => import('../components/Product/productDetail.js'));
 
 const ProductDetailPage = () => {
-    return <ProductDetail/>
+    return (
+      <Suspense>
+        <ProductDetail/>
+      </Suspense>      
+    );
   };
   
 export default ProductDetailPage;

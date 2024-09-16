@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import '../styles/cart.css';
+// import '../styles/cart.css';
 
 //import {CartPageDetail} from '../components/CartPage/cartdetail';
 

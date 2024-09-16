@@ -1,9 +1,13 @@
-import React from 'react'
-import Login from '../components/Login/login'
+import React, { Suspense } from 'react'
+// import Login from '../components/Login/login'
+
+const Login = React.lazy(() => import('../components/Login/login'));
 
 const LoginPage = () => {
   return (
-    <Login/>
+    <Suspense>
+      <Login/>
+    </Suspense>    
   )
 }
 

@@ -7,7 +7,7 @@ import { DoAddToCart,UpdateCartInfo } from "../CartPage/cart.js";
 
 import '../../styles/search.css';
 
-const Search = () => {
+export default function Search(){
   const [products, setProducts] = useState([]);
   const [key, setKey] = useState();
 
@@ -21,6 +21,9 @@ const Search = () => {
   }, []);
 
   const handleSearchClick = async (e) => {
+
+    if(!key || key.length < 3) return;
+
     LoaderToggle(true);
     var res = await SearchProduct(key);
     if(res.isSuccess)
@@ -135,5 +138,3 @@ export function ProductItem(props){
       </div>
   );
 }
-
-export { Search }

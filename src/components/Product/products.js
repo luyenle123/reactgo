@@ -11,15 +11,14 @@ import { useNavigate } from "react-router-dom";
 import * as constants from '../../constants/constant.js'
 import { Category, UpdateCategoryProductCount } from './category.js';
 
+/*PRODUCT LISTING*/
+
 export default function Products(){
     const [products, setProducts] = useState(undefined);
     const [pageinfo, setPageInfo] = useState({pageSize:8, sorting:1});
-    //const [gotData, setgotData] = useState(false);
     const [categorySelected, setCategorySelected] = useState();
 
     var fetchProduct = false;
-
-    //const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     //console.log('>> render Products');
@@ -27,14 +26,10 @@ export default function Products(){
     const notify = (msg) => toast(msg);    
 
     const queryData = (page) => { 
-        //setIsLoading(true);
-
         LoaderToggle(true);
 
         setTimeout(() => {
             doFetchProduct(page);
-
-            //setIsLoading(false);
         }, 500);
     };      
       
@@ -50,7 +45,6 @@ export default function Products(){
         {
             setProducts(res.data.products);
             setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));
-            //setgotData(true);
             setCategorySelected(undefined);
         }
         else{
@@ -69,7 +63,6 @@ export default function Products(){
     };
 
     const handleSortingChanged = (e) => {
-        //console.log(e.target.value);
         var sortType = parseInt(e.target.value);
         var obj = pageinfo;
         obj.sorting = sortType;
@@ -109,7 +102,6 @@ export default function Products(){
     };
 
     const handlePdpBlick = (pId) => {
-        //var pId = e.target.attributes['productId'].value;
         navigate( '/' + constants.NAV_PRODUCT_DETAIL +'?id='+ pId);
     };    
 
@@ -143,7 +135,6 @@ export default function Products(){
         {
             setProducts(res.data.products);
             setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));
-            //setgotData(true);
             setCategorySelected(category);
             UpdateCategoryProductCount(res.data.total)            
         }
@@ -168,9 +159,6 @@ export default function Products(){
 
     return(
         <>
-            {/* <Loader isActive={false}/> */}
-            {/* {config.isLoading && <Loader/>} */}
-
             <div className='row'>
                 <div className='column left'>
                     <Category handleClick={categoryHandleClick} productCount={products.length}/>
@@ -186,7 +174,6 @@ export default function Products(){
 }
 
 export function  ProductList(props) {
-    //console.log('>> render ProductList');
     if(props.products.length <= 0)
     {
         return(
@@ -239,52 +226,3 @@ export function ProductItem(props){
         </div>
     );
 }
-
-// export function  ProductList({config, products}) {
-//     console.log('>> render ProductList');
-//     if(products.length <= 0)
-//     {
-//         return(
-//             <div className="product-list-container">
-//                 { 
-//                     <div className="product-flex">
-//                         <div className="no-product">No Product</div>
-//                     </div>
-//                 }
-//             </div>
-//         );
-//     }
-//   return (        
-//         <div className="product-list-container">
-//             {config.hasData && <Pagination config={config}/>}
-//             <div className="product-flex">
-//                 {products.map((p) => {
-//                     return <ProductItem key = {p.id} product = {p} handleAddToCartClick={config.handleAddToCartClick} handlePdpBlick={config.handlePdpBlick}/>
-//                 })}
-//             </div>
-//         </div>    
-//   )
-// };
-
-// export function ProductItem({product, handleAddToCartClick, handlePdpBlick}){
-//     return(
-//         <div className="product-card"> 
-//                 <div className="product-img">
-//                     <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + product.id}>
-//                         <img className='product-image' src={product.thumbnail} alt={product.title} onClick={() => handlePdpBlick(product.id)}/>
-//                     </a>
-//                 </div>
-
-//                 <p className="product-title">{product.title}</p>
-//                 <p className="product-sku">{product.sku}</p>
-//                 <p className="product-description">{product.description}</p>
-//                 <p className="product-stock">{product.availabilityStatus} ({product.stock})</p>
-//                 <p className="product-price">{product.price} $</p>
-
-//                 <div className="product-card-buttons">
-//                     <button className="add-to-cart-button" onClick={handleAddToCartClick} value={product.id} sku={product.sku} price={product.price}>Add To Cart</button>
-//                 </div>
-//         </div>
-//     );
-// }
-
