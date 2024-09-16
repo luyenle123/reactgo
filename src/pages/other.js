@@ -2,9 +2,10 @@
 
 // import { Accordion } from '../components/DEMO/Accordion.js';
 // import { SyncedInputs } from '../components/DEMO/SyncedInputs.js';
+import ArrState from '../components/DEMO/ArrState/arrstate.js';
 import {MemoTest} from '../components/DEMO/Memo/test.js';
 // import { Parent } from '../components/DEMO/UC/parent.js';
-import ProductList from '../components/DEMO/UC/productList.js';
+// import ProductList from '../components/DEMO/UC/productList.js';
 // import { Garage } from '../components/DEMO/UC/proptest.js';
 import { Counter } from '../components/DEMO/UE/counter.js';
 
@@ -12,6 +13,9 @@ const OtherPage = () => {
     return(
       <>
         {/* <Clock /> */}
+        <div className='group'>
+          <ArrState/>    
+        </div> 
 
         <div className='group'>
           <MemoTest/>    
@@ -37,9 +41,9 @@ const OtherPage = () => {
           <Parent/>    
         </div>
 */}
-        <div className='group'>
+        {/* <div className='group'>
           <ProductList />
-        </div> 
+        </div>  */}
 
       </>
     );
