@@ -4,6 +4,7 @@
 // import { SyncedInputs } from '../components/DEMO/SyncedInputs.js';
 import ArrState from '../components/DEMO/ArrState/arrstate.js';
 import {MemoTest} from '../components/DEMO/Memo/test.js';
+import Gallery from '../components/DEMO/State/Gallery.js';
 // import { Parent } from '../components/DEMO/UC/parent.js';
 // import ProductList from '../components/DEMO/UC/productList.js';
 // import { Garage } from '../components/DEMO/UC/proptest.js';
@@ -11,7 +12,7 @@ import { Counter } from '../components/DEMO/UE/counter.js';
 
 const OtherPage = () => {
     return(
-      <>
+      <>      
         {/* <Clock /> */}
         <div className='group'>
           <ArrState/>    
@@ -23,7 +24,12 @@ const OtherPage = () => {
 
         <div className='group'>
           <Counter/>    
-        </div>        
+        </div>
+
+        <div className='group'>
+          <Gallery name={'G1'}/>
+          <Gallery name={'G2'}/>
+        </div>
 
         {/* <div className='group'>
           <h1>SSBC</h1>

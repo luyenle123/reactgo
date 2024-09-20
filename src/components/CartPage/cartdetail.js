@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { Loader, LoaderToggle } from "../Loader/loader.js";
+import { LoaderToggle } from "../Loader/loader.js";
 import { toast } from 'react-toastify';
 import { GetCartDetail } from '../../services/cartService.js';
 import * as constants from '../../constants/constant.js'

@@ -61,9 +61,7 @@ export default function Users(){
 
     const handleItemDisplayChanged = (e) => {
         var newPageSize = parseInt(e.target.value);
-        var obj = pageinfo;
-        obj.pageSize = newPageSize;
-        setPageInfo(obj);
+        pageinfo.pageSize = newPageSize;
 
         queryData(1);
     };
@@ -82,8 +80,22 @@ export default function Users(){
     config.handleSortingChanged = handleSortingChanged;    
 
     useEffect(()=>{
-        queryData(1);
-    }, []);
+        async function FetchUser() {
+            var res = await GetUserList(1, pageinfo.pageSize, 0);
+            if(res.isSuccess)
+            {
+                setUsers(res.data.users);
+                setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageinfo.pageSize, pageinfo.sorting));
+                setgotData(true);
+            }
+            else{
+                toast('Error: ' + res.data);
+            }
+            setIsLoading(false);
+        }
+
+        FetchUser();
+    }, [pageinfo.pageSize, pageinfo.sorting]);
 
     return(
         <>

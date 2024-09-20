@@ -38,15 +38,6 @@ export const Cart = () => {
 
   //console.log('Cart Info');
 
-  var res = null;
-  const doGetCartDetail = async() => {
-    res = await GetCartDetail(5);
-    if(res.isSuccess)
-    {
-      setCart(res.data);
-    }
-  }
-
   const handleCartClick = async (e) => {
      if(showMiniCart)
      {
@@ -84,7 +75,16 @@ export const Cart = () => {
   }  
 
   useEffect(() => {
-    doGetCartDetail();
+
+    async function FetchCartDetail() {
+      const res = await GetCartDetail(5);
+      if(res.isSuccess)
+      {
+        setCart(res.data);
+      }      
+    }
+
+    FetchCartDetail();
   }, []);  
 
 

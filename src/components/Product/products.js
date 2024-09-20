@@ -55,18 +55,14 @@ export default function Products(){
 
     const handleItemDisplayChanged = (e) => {
         var newPageSize = parseInt(e.target.value);
-        var obj = pageinfo;
-        obj.pageSize = newPageSize;
-        setPageInfo(obj);
+        pageinfo.pageSize = newPageSize;
 
         queryData(1);
     };
 
     const handleSortingChanged = (e) => {
         var sortType = parseInt(e.target.value);
-        var obj = pageinfo;
-        obj.sorting = sortType;
-        setPageInfo(obj);
+        pageinfo.sorting = sortType;
 
         queryData(1);        
     };
@@ -106,8 +102,22 @@ export default function Products(){
     };    
 
     useEffect(() => {
-        queryData(1);
-    }, []);
+
+        async function FetchProduct(){     
+            var res = await GetProductList(1, pageinfo.pageSize, pageinfo.sorting);
+            if(res.isSuccess)
+            {
+                setProducts(res.data.products);
+                setPageInfo(GetPageInfo(res.data.total, res.data.products.length, 1, pageinfo.pageSize, pageinfo.sorting));
+                setCategorySelected(undefined);
+            }
+
+            LoaderToggle(false);
+        }           
+
+        LoaderToggle(true);
+        FetchProduct();
+    }, [pageinfo.pageSize, pageinfo.sorting]);
 
     if(!products){
         return(<></>);
@@ -122,7 +132,7 @@ export default function Products(){
     config.handleItemDisplayChanged = handleItemDisplayChanged;
     config.handleSortingChanged = handleSortingChanged;
     config.handlePdpBlick = handlePdpBlick;
-    config.hideSortOption = true;
+    config.hideSortOption = false;
 
     //const config1 = CloneConfig(config);
 
@@ -209,7 +219,7 @@ export function ProductItem(props){
             <div className="product-card"> 
                     <div className="product-img">
                         <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
-                            <img className='product-image' src={props.product.thumbnail} alt={props.product.title}/>
+                            <img className='product-image' src={props.product.thumbnail} alt={props.product.title} loading='lazy'/>
                         </a>
                     </div>
 

@@ -10,17 +10,12 @@ import Footer from '../components/Footer/footer.js';
 const Layout = () => {
     const navigate = useNavigate();
 
-    var isLogin = false;
+    var isLogin = IsLogin();
     useEffect(() => {
-        isLogin = IsLogin();
-        if(!isLogin){
+        if(!IsLogin()){
             navigate('/' + constants.NAV_LOGIN)
         }
     }, []);
-
-    if(!isLogin){
-        isLogin = IsLogin();
-    }
 
     //console.log('>> render layout');
     

@@ -11,20 +11,20 @@ const Category = ({handleClick, productCount}) => {
     //console.log('>> render category: ' + productCount);
   
     const notify = (msg) => toast(msg);       
-      
-    const doFetchCategory = async () => {     
-        var res = await GetCategoryList();
-        if(res.isSuccess)
-        {
-            setCateories(res.data);
-        }
-        else{
-            notify('Error: ' + res.data);
-        }
-    }
-    
-    useEffect(() => {     
-        doFetchCategory();
+         
+    useEffect(() => {
+        async function FetchCategory(){     
+            var res = await GetCategoryList();
+            if(res.isSuccess)
+            {
+                setCateories(res.data);
+            }
+            else{
+                notify('Error: ' + res.data);
+            }
+        }        
+
+        FetchCategory();
     }, []);
 
 
