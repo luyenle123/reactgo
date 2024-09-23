@@ -52,8 +52,8 @@ const Login = () => {
         var res = await LoginAPI('emilys','emilyspass');
         if(res.isSuccess)
         {
-          if(res.data.token !== undefined){
-            localStorage.setItem(constants.AUTH_NAME, res.data.token);
+          if(res.data.accessToken !== undefined){
+            localStorage.setItem(constants.AUTH_NAME, res.data.accessToken);
             toast('Login successful.');
             navigate('/');
           }
