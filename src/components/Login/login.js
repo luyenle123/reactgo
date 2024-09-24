@@ -41,7 +41,7 @@ const Login = () => {
       setPassword(e.target.value);
     }    
 
-    const handleloginClick = async (e) => {
+    const handleLoginClick = async (e) => {
 
       if(!email || !password){
         toast('Input username and password');
@@ -64,15 +64,14 @@ const Login = () => {
 
         setIsLoading(false);         
     };
+
+    const handleLoginGoogleClick = async (e) => {
+      
+    };    
+
   return (
     <div className='login-main'>
         {isLoading && <Loader/> }
-
-        {/* <div className="container">
-          <div className="element">
-            <p>I am vertically centered.</p>
-          </div>
-        </div> */}
 
         <div className='login-container'>
           
@@ -87,16 +86,22 @@ const Login = () => {
                 <input className='item-block-textbox' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
               </div>
 
-              <div className='item-block-2'>
-                <label className="form-control">
+              <div className='item-block'>
                   <input type="checkbox" name="checkbox" />
-                  <span className='form-control-label'>Remember</span>
-                </label>
+                  <div className='checkbox-label'>Remember</div>
               </div>
 
               <div className='item-block'>
-                <button className='login-button' onClick={handleloginClick}>Login</button>
-              </div>              
+                <button className='login-button-base login-button' onClick={handleLoginClick}>Login</button>
+              </div>
+              
+              <div className='item-block'>
+                <button className='login-button-base login-button-google' onClick={handleLoginGoogleClick}>Google</button>
+              </div>
+              
+              <div className='item-block'>
+                <p>Fogot password</p>
+              </div>                
                 
             </div>
         </div>
