@@ -5,13 +5,16 @@ import { useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {LoginAPI} from '../../services/userService.js';
 import * as constants from '../../constants/constant.js'
-import { GoogleOAuthProvider, useGoogleLogin  } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin  } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import env from "react-dotenv";
+
 // import { OAuth2Client} from 'google-auth-library';
 
 import '../../styles/login.css'
 import googleIcon from '../../images/google.png';
 
-const google_client_id = '';
+const google_client_id =  '';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -140,6 +143,14 @@ const Login = () => {
     );
   };
 
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => {
+      console.log(tokenResponse);
+      setUser(tokenResponse);     
+    },
+    onError: () => toast.error("Login Failed")    
+  });  
+
   return (
     <div className='login-main'>
         {isLoading && <Loader/> }
@@ -168,17 +179,33 @@ const Login = () => {
               
               <div className='item-block'>
                 {/* <GoogleOAuthProvider clientId={google_client_id}>
-                  <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+                  <GoogleLogin
+                    onSuccess={credentialResponse => {
+                      console.log(credentialResponse);
+
+                      const token = credentialResponse?.credential;
+                      const decoded = jwtDecode(token);
+                      
+                      console.log(decoded.name);
+                      console.log(decoded.email);
+                      console.log(decoded);
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  />
+                </GoogleOAuthProvider> */}
+             
+
+                {/* <GoogleOAuthProvider clientId={google_client_id}>
+                  <GoogleLoginButton />
                 </GoogleOAuthProvider> */}
 
-                <GoogleOAuthProvider clientId={google_client_id}>
-                  <GoogleLoginButton />
-                </GoogleOAuthProvider>
+              {/* <MyCustomButton onClick={() => login()}>Sign in with Google 🚀</MyCustomButton>; */}
+              <button className='login-button-base login-button-google' onClick={() => login()}>
+                <img src={googleIcon} width={20} height={20} alt='google'></img>
+              </button>  
 
-                {/* <button className='login-button-base login-button-google' onClick={googleLogin}>
-                    <img src={googleIcon} width={20} height={20} alt='google'></img>
-                </button>                   */}
-                                
               </div>
               
               <div className='item-block text-center'>
