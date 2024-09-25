@@ -5,6 +5,7 @@
 import ArrState from '../components/DEMO/ArrState/arrstate.js';
 import {MemoTest} from '../components/DEMO/Memo/test.js';
 import Gallery from '../components/DEMO/State/Gallery.js';
+import TaskApp from '../components/DEMO/Task/TaskApp.js';
 // import { Parent } from '../components/DEMO/UC/parent.js';
 // import ProductList from '../components/DEMO/UC/productList.js';
 // import { Garage } from '../components/DEMO/UC/proptest.js';
@@ -14,6 +15,10 @@ const OtherPage = () => {
     return(
       <>      
         {/* <Clock /> */}
+        <div className='group'>
+          <TaskApp/>    
+        </div> 
+
         <div className='group'>
           <ArrState/>    
         </div> 
