@@ -7,6 +7,7 @@ import {LoginAPI} from '../../services/userService.js';
 import * as constants from '../../constants/constant.js'
 
 import '../../styles/login.css'
+import googleIcon from '../../images/google.png';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -96,11 +97,15 @@ const Login = () => {
               </div>
               
               <div className='item-block'>
-                <button className='login-button-base login-button-google' onClick={handleLoginGoogleClick}>Google</button>
+                <button className='login-button-base login-button-google' onClick={handleLoginGoogleClick}>
+                  <img src={googleIcon} width={20} height={20} alt='google'></img>
+                </button>
               </div>
               
-              <div className='item-block'>
-                <p>Fogot password</p>
+              <div className='item-block text-center'>
+                <p>
+                  <a href='/login'>Forgot password</a>
+                </p>
               </div>                
                 
             </div>
