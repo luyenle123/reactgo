@@ -16,11 +16,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const inputRef = React.useRef();
-
-    // useEffect(()=>{
-    //     document.getElementById('root').style.backgroundImage = `url('../images/bg_001.jpg')`;
-    // })
-
+  
     useEffect(() => {
       if(localStorage.getItem(constants.AUTH_NAME)){
           navigate('/')
