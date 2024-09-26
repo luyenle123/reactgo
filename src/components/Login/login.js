@@ -3,18 +3,15 @@ import { toast } from 'react-toastify';
 import { Loader } from "../Loader/loader.js";
 import { useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {LoginAPI} from '../../services/userService.js';
+import {GetGoogleUerInfo, LoginAPI} from '../../services/userService.js';
 import * as constants from '../../constants/constant.js'
-import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin  } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
-import env from "react-dotenv";
-
-// import { OAuth2Client} from 'google-auth-library';
+import { useGoogleLogin  } from '@react-oauth/google';
+// import { jwtDecode } from "jwt-decode";
 
 import '../../styles/login.css'
 import googleIcon from '../../images/google.png';
 
-const google_client_id =  '';
+const google_client_id =  '980791468427-0um1vqe2ptvth730ufm4mauk2omeg5pf.apps.googleusercontent.com';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -43,24 +40,55 @@ const Login = () => {
       }
     }, []);
 
-    useEffect(
-      () => {
-          if (user) {
-            fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                headers: {
-                    Authorization: `Bearer ${user.access_token}`,
-                    Accept: 'application/json'
-                }
-            })
-            .then((res) => {
-                setProfile(res.data);
-                console.log('PROFILE: ' + res.data);
-            })
-            .catch((err) => console.log('ERROR: ' + err));
-          }
-      },
-      [ user ]
-  );
+    useEffect(() => {
+      async function getUserInfo() {
+        var userInfo = await GetGoogleUerInfo(user.access_token);
+
+        if(userInfo.isSuccess){
+          console.log('USER INFO: ');
+          console.log(userInfo);
+          console.log('--------------------');
+          setProfile(userInfo.data);
+          toast.success('login success with ' + userInfo?.data?.name + '' + userInfo?.data?.email);
+        }
+        else{
+          toast.error('login failed');
+        }
+      } 
+
+
+      if (user) {
+        console.log('ACCESS_TOKEN: ' + user.access_token);
+        getUserInfo();
+
+        // fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+        //     headers: {
+        //         Authorization: `Bearer ${user.access_token}`,
+        //         Accept: 'application/json'
+        //     }
+        // })
+        // .then((res) => {
+
+        //   fetch(res.url)
+        //   .then((res) => {
+        //       if (res.ok) {
+        //         return res.json();
+        //       }
+        //   })
+        //   .then((res) => {
+        //     setProfile(res);
+
+        //     console.log('PROFILE: ');
+        //     console.log(res);
+        //     console.log('--------------------');                
+        //   })
+        //   .catch((err) => {
+              
+        //   });
+        // })
+        // .catch((err) => console.log('ERROR: ' + err));
+      }
+    }, [ user ]);
   
     
     const emailChangeHandle = (e) => {
@@ -94,54 +122,6 @@ const Login = () => {
 
         setIsLoading(false);         
     };
- 
-  const GoogleLoginButton = () => {
-    const handleGoogleAuth = useGoogleLogin({
-      onSuccess: codeResponse => {
-        console.log(codeResponse);
-
-        const code = JSON.stringify({ code: decodeURIComponent(codeResponse.code) });
-        const client_id = google_client_id;
-        const client_secret = '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';
-        const redirect_uri = 'http://localhost:3001';
-        const grant_type = 'authorization_code';
-
-        fetch('https://oauth2.googleapis.com/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams({
-            code,
-            client_id,
-            client_secret,
-            redirect_uri,
-            grant_type,
-          }),
-        })
-        .then(response => response.json())
-        .then(tokens => {
-          //res.json(tokens);
-          setUser(tokens)
-          console.log(tokens);
-        })
-        .catch(error => {
-          // Handle errors in the token exchange
-          console.error('Token exchange error:', error);
-        });        
-      
-        toast.success('Sign in with Google completed.');
-      },
-      onError: () => toast.error("Login Failed"),
-      flow: "auth-code",
-    });
-
-    return (
-      <button className='login-button-base login-button-google' onClick={handleGoogleAuth}>
-        <img src={googleIcon} width={20} height={20} alt='google'></img>
-      </button>  
-    );
-  };
 
   const login = useGoogleLogin({
     onSuccess: tokenResponse => {
@@ -196,12 +176,6 @@ const Login = () => {
                   />
                 </GoogleOAuthProvider> */}
              
-
-                {/* <GoogleOAuthProvider clientId={google_client_id}>
-                  <GoogleLoginButton />
-                </GoogleOAuthProvider> */}
-
-              {/* <MyCustomButton onClick={() => login()}>Sign in with Google 🚀</MyCustomButton>; */}
               <button className='login-button-base login-button-google' onClick={() => login()}>
                 <img src={googleIcon} width={20} height={20} alt='google'></img>
               </button>  

@@ -1,8 +1,8 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import React, { Suspense } from 'react';
+// require('dotenv').config();
 
 const Login = React.lazy(() => import('../components/Login/login'));
-
 const LoginPage = () => {
   const google_client_id =  '';
   return (

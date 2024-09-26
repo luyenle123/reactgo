@@ -76,4 +76,41 @@ const IsLogin = () =>{
     }
 }
 
-export { GetUserList, LoginAPI, IsLogin};
+const GetGoogleUerInfo = async (accesstoken) => {
+    try {
+        const response = await new Promise(            
+            resolve => {
+                fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accesstoken}`, {
+                    headers: {
+                        Authorization: `Bearer ${accesstoken}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+            
+                    fetch(res.url).then((res) => res.json())
+                    .then((res) => {
+                      console.log('PROFILE: ');
+                      console.log(res);
+                      console.log('--------------------');
+                
+                      resolve({data: res, isSuccess: true});
+                    })
+                    .catch((err) => {
+                        console.log('ERROR: ' + err);
+                        resolve({data: err, isSuccess: false});
+                    });
+                })
+                .catch((err) => {        
+                    console.log('ERROR: ' + err)
+                    resolve({data: err, isSuccess: false});
+                });
+            }
+        );
+        return response;
+    } catch (error) {
+        return {data: error, isSuccess: false};
+    }    
+}
+
+export { GetUserList, LoginAPI, IsLogin, GetGoogleUerInfo};

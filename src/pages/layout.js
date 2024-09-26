@@ -15,7 +15,7 @@ const Layout = () => {
         if(!IsLogin()){
             navigate('/' + constants.NAV_LOGIN)
         }
-    }, []);
+    }, [navigate]);
 
     //console.log('>> render layout');
     
