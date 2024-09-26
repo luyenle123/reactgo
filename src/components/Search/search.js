@@ -1,41 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SearchProduct } from '../../services/productService.js';
 import { toast } from 'react-toastify';
 import * as constants from '../../constants/constant.js'
 import { LoaderToggle } from "../Loader/loader.js";
 import { DoAddToCart,UpdateCartInfo } from "../CartPage/cart.js";
+import { useSearchParams } from "react-router-dom";
 
 import '../../styles/search.css';
+import '../../styles/searchBox.css';
+import SearchBox from './searchBox.js';
 
 export default function Search(){
   const [products, setProducts] = useState([]);
-  const [key, setKey] = useState();
+  const [searchText, setSearchText] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const inputRef = React.useRef();
-
+  const text = searchParams.get('text');
+  
   useEffect(() => {
-    if(inputRef)
-    {
-      inputRef.current.focus();      
-    }
-  }, []);
-
-  const handleSearchClick = async (e) => {
-
-    if(!key || key.length < 3) return;
-
-    LoaderToggle(true);
-    var res = await SearchProduct(key);
-    if(res.isSuccess)
-    {
+    async function DoSearch(searchText) {
+      LoaderToggle(true);
+      var res = await SearchProduct(searchText);
+      if(res.isSuccess)
+      {
+        setSearchText(searchText);
         setProducts(res.data.products);
-    }
-    else{
-        toast('Error: ' + res.data);
+      }
+      else{
+          toast('Error: ' + res.data);
+      }
+      LoaderToggle(false);
     }
 
-    LoaderToggle(false);
-  }
+    if(text && text.length >= 3){
+      DoSearch(text);
+      setSearchParams('');
+    }
+  }, [text, setSearchParams]);  
 
 const updateStatus = (b) => {
   LoaderToggle(false);
@@ -48,10 +49,20 @@ const handleAddToCartClick = (e) => {
   DoAddToCart(productId, e.target.attributes['sku'].value, updateStatus);
 };
 
-const handleKeyDown = (event) => {
-  if (event.key === 'Enter' && key && key.length>=3) {
-    handleSearchClick();
+const handleSearch = async (key) => {
+  if(!key || key.length < 3) return;
+
+  LoaderToggle(true);
+  var res = await SearchProduct(key);
+  if(res.isSuccess)
+  {
+    setSearchText(key);
+    setProducts(res.data.products);
   }
+  else{
+      toast('Error: ' + res.data);
+  }
+  LoaderToggle(false);
 }
 
 // const isOk  = user => {
@@ -79,16 +90,7 @@ const handleKeyDown = (event) => {
             <p>Search</p>
         </div> */}
 
-        <div className='search-page-box'>
-            <div className='search-page-form'>
-              <div className="search-textbox">
-                <input ref={inputRef} onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
-              </div>
-              <div className='search-button'>
-                <button onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
-              </div>
-            </div>
-        </div>
+        <SearchBox handleSearch={handleSearch} text={text}/>
 
         <div className='search-page-result'>
           {products.length <= 0 && <div className='search-page-no-result'>No Result</div>}
@@ -97,7 +99,7 @@ const handleKeyDown = (event) => {
             products.length > 0 &&
             <>
               <div className='search-page-result-info'>
-                Found: {products.length} entries
+                Found: {products.length} entries for {searchText}
               </div>
               
                 <div className='product-result-container'>

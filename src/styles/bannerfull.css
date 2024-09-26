@@ -1,0 +1,26 @@
+.banner-full-container{
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-color: rgb(240, 240, 240);
+
+    .text-area{
+        position: absolute;
+        top: 25%;
+        left: 5%;
+        color: #fff;
+        width: 500px;
+        border: solid 1px #cecece88;
+        padding: 20px;
+        border-radius: 10px;
+        
+        .header{
+            font-size: 30px;
+        }
+
+        .description{
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    }
+}

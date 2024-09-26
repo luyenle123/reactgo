@@ -44,6 +44,9 @@ const Login = () => {
           console.log('--------------------');
           setProfile(userInfo.data);
           toast.success('login success with ' + userInfo?.data?.name + '' + userInfo?.data?.email);
+
+          localStorage.setItem(constants.AUTH_NAME, user?.access_token);
+          localStorage.setItem(constants.AUTH_USER_NAME, userInfo?.name);
         }
         else{
           toast.error('login failed');
@@ -104,7 +107,8 @@ const Login = () => {
         if(res.isSuccess)
         {
           if(res.data.accessToken !== undefined){
-            localStorage.setItem(constants.AUTH_NAME, res.data.accessToken);
+            localStorage.setItem(constants.AUTH_NAME, res?.data?.accessToken);
+            localStorage.setItem(constants.AUTH_USER_NAME, res?.data?.username);
             toast('Login successful.');
             navigate('/');
           }

@@ -1,5 +1,5 @@
 .home-main{
-    background-color: #ccc;
+    background-color: #fff;
     margin: 0;
     width: 100%;
     z-index: 998;
@@ -8,11 +8,12 @@
 }
   
 .home-container{
-    position: fixed;
-    inset: 0px;
-    width: 500px;
+    /* position: fixed; */
+    /* inset: 0px; */
+    width: 600px;
     height: 500px;
     margin: auto;
+    padding-top: 100px;
 }
 
 .gogo{

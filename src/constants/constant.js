@@ -8,6 +8,7 @@ export const CATEGORY_LIST_URL = "https://dummyjson.com/products/category-list";
 export const SEARCH_PRODUCT_URL = "https://dummyjson.com/products/search";
 
 export const AUTH_NAME = "gogo-auth";
+export const AUTH_USER_NAME = "gogo-u-name";
 
 export const NAV_USER_LIST = "userlist";
 export const NAV_PRODUCT_LIST = "products";

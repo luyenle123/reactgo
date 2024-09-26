@@ -3,10 +3,10 @@ import React, { Suspense } from 'react';
 
 const Login = React.lazy(() => import('../components/Login/login'));
 const LoginPage = () => {
-  const google_client_id =  '';
+  // const google_client_id =  '';
   return (
     <Suspense>
-      <GoogleOAuthProvider clientId={google_client_id}>
+      <GoogleOAuthProvider clientId=''>
         <Login/>
       </GoogleOAuthProvider> 
     </Suspense>    

@@ -15,7 +15,7 @@ import { Category, UpdateCategoryProductCount } from './category.js';
 
 export default function Products(){
     const [products, setProducts] = useState(undefined);
-    const [pageinfo, setPageInfo] = useState({pageSize:8, sorting:1});
+    const [pageinfo, setPageInfo] = useState({pageSize:12, sorting:1});
     const [categorySelected, setCategorySelected] = useState();
 
     var fetchProduct = false;

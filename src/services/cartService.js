@@ -1,27 +1,30 @@
 import * as constants from '../constants/constant.js'
+import { FetchData } from '../services/queryServiceBase.js';
 
 const GetCartDetail = async (cartId) => {
     try {      
         var url = constants.CART_DETAIL_URL + cartId;
-
-        const response = await new Promise(            
-            resolve => {
-                fetch(url)
-                .then((res) => {
-                    if (res.ok) {
-                      return res.json();
-                    }
-                    resolve({data: res.status, isSuccess: false});
-                })
-                .then((res) => {
-                    resolve({data: res, isSuccess: true})
-                })
-                .catch((err) => {
-                    resolve({data: err, isSuccess: false});
-                });
-            }
-        );
+        const response = FetchData(url);
         return response;
+
+        // const response = await new Promise(            
+        //     resolve => {
+        //         fetch(url)
+        //         .then((res) => {
+        //             if (res.ok) {
+        //               return res.json();
+        //             }
+        //             resolve({data: res.status, isSuccess: false});
+        //         })
+        //         .then((res) => {
+        //             resolve({data: res, isSuccess: true})
+        //         })
+        //         .catch((err) => {
+        //             resolve({data: err, isSuccess: false});
+        //         });
+        //     }
+        // );
+        // return response;
     } catch (error) {
         return {data: error, isSuccess: false};
     }
