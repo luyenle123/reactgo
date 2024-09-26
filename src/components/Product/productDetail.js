@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { GetProductDetail } from '../../services/productService.js';
 import { Loader } from "../Loader/loader.js";
 
-const ProductDetail = () => {
+export default function ProductDetail(){
     const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState({images:['']});
 
@@ -92,5 +92,3 @@ export function ReviewItem({data}){
         </div>
     );
 }
-
-export { ProductDetail}

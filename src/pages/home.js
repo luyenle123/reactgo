@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import * as constants from '../constants/constant';
@@ -16,7 +15,7 @@ const Home = () => {
       <div className='home-main'>
         <div className='home-container'>          
 
-        <SearchBox handleSearch={handleSearch}/>
+        <SearchBox handleSearch={handleSearch} type={2}/>
 
          {/* <div className='gogo'>
             <p>GO GO TEST</p>

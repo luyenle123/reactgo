@@ -11,7 +11,7 @@
 }
 
 .left {
-  background-color: #e7e7e7b2;
+  /* background-color: #e7e7e7b2; */
   min-width: 300px;
   height: auto;
 }
@@ -42,15 +42,14 @@
 }
 
 .product-card-container{
-  width: 24%;
-  /* height: 400px; */
+  width: 385px;
   position: relative;
 
   .product-card {
     text-align: center;
-    border: solid 1px #ccc;
+    border: solid 1px #f1f1f1;
     border-radius: 5px;
-    height: 400px;
+    height: 410px;
     position: relative;
     margin: 4px;
     padding: 8px;
