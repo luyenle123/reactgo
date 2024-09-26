@@ -11,8 +11,6 @@ import { useGoogleLogin  } from '@react-oauth/google';
 import '../../styles/login.css'
 import googleIcon from '../../images/google.png';
 
-const google_client_id =  '980791468427-0um1vqe2ptvth730ufm4mauk2omeg5pf.apps.googleusercontent.com';
-
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -22,10 +20,6 @@ const Login = () => {
     const [ profile, setProfile ] = useState();
 
     const inputRef = React.useRef();
-
-    // useEffect(()=>{
-    //     document.getElementById('root').style.backgroundImage = `url('../images/bg_001.jpg')`;
-    // })
 
     useEffect(() => {
       if(localStorage.getItem(constants.AUTH_NAME)){
@@ -55,7 +49,6 @@ const Login = () => {
           toast.error('login failed');
         }
       } 
-
 
       if (user) {
         console.log('ACCESS_TOKEN: ' + user.access_token);
