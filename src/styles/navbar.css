@@ -53,3 +53,12 @@
     }
   }
   
+.welcome{
+    margin-top: 5px;
+    color: #fff;
+
+    span{
+        font-weight: 600;
+        color: aqua;
+    }
+}  

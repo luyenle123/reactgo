@@ -14,6 +14,11 @@ export default function NavBar({isLogin}){
             {isLogin && 
                 <>
                     <li>
+                        <div className='welcome'>
+                            Hello <span>{localStorage.getItem(constants.AUTH_USER_NAME)}</span>
+                        </div>                        
+                    </li>
+                    <li>
                         <Link to={'/' + constants.NAV_LOGOUT} className='nav-logout'>Logout</Link>
                     </li>                            
                     <li>

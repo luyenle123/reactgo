@@ -46,7 +46,7 @@ const Login = () => {
           toast.success('login success with ' + userInfo?.data?.name + '' + userInfo?.data?.email);
 
           localStorage.setItem(constants.AUTH_NAME, user?.access_token);
-          localStorage.setItem(constants.AUTH_USER_NAME, userInfo?.name);
+          localStorage.setItem(constants.AUTH_USER_NAME, userInfo?.data?.name);
         }
         else{
           toast.error('login failed');
