@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 
 //import {CartPageDetail} from '../components/CartPage/cartdetail';
 
-const CartPageDetail = React.lazy(() => import('../components/CartPage/cartdetail'));
+const CartPageDetail = React.lazy(() => import('../components/Cart/cartdetail'));
 
 const CartPage = () => {
     return (

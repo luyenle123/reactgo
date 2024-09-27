@@ -41,7 +41,7 @@ const Category = ({handleClick, productCount}) => {
 
   return (
     <div className='category-container'>
-        <div className='category-header'>Category</div>
+        <div className='category-header'>Filter</div>
         <div className='category-selection'>
             {
                 categorySelected && <>

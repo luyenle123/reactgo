@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as constants from '../constants/constant';
 import SearchBox from '../components/Search/searchBox';
 import '../styles/home.css';
+import Categoryblock from '../components/home/categoryblock';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const Home = () => {
         <div className='home-container'>          
 
         <SearchBox handleSearch={handleSearch} type={2}/>
+
+        <div className='home-category-wraper'>
+          <Categoryblock/>
+        </div>
 
          {/* <div className='gogo'>
             <p>GO GO TEST</p>

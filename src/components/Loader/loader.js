@@ -19,8 +19,7 @@ const Loader = ({isActive}) => {
   )
 }
 
-
-const LoaderToggle = (display) => {
+const LoaderToggle = (display, callback = undefined) => {
   const loader = document.getElementById('loader');  
   if(display){
     ShowLoader(loader, true)
@@ -28,6 +27,10 @@ const LoaderToggle = (display) => {
   else{
     FadeLoader();
   }
+
+  if(callback){
+    callback();
+  }   
 }
 
 function ShowLoader(show){

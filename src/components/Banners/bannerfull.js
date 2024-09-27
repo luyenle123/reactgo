@@ -3,14 +3,18 @@ import React, { useEffect, useState } from 'react'
 import '../../styles/bannerfull.css';
 import bannerImg1 from '../../images/banner_001_400.jpg';
 import bannerImg2 from '../../images/banner_002_400.jpg';
+import bannerImg3 from '../../images/banner_003_400.jpg';
+import bannerImg4 from '../../images/banner_004_400.jpg';
 
 export default function Bannerfull(){
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const bannerImages = [
-        bannerImg1,
-        bannerImg2
-      ];
+      bannerImg1,
+      bannerImg2,
+      bannerImg3,
+      bannerImg4
+    ];
 
       useEffect(() => {
         // Set up an interval to change the image every 10 seconds

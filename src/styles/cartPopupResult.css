@@ -1,0 +1,121 @@
+.popup-result-container{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    .popup-result-bg{
+        width: 100%;
+        height: 100%;
+        background-color: #b6b6b6;
+        opacity: 0.4;
+    }
+
+    .popup-result-body-container{
+        position: fixed;
+        inset: 0;
+        max-width: 500px;
+        height: 350px;
+        margin: auto;
+        background-color: #fff;
+        border-radius: 10px;
+
+        .popup-result-body{
+            width: 100%;
+            height: 350px;
+
+            .popup-result-header{
+                text-align: center;            
+                font-size: 14px;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: green;
+                padding: 16px 0px;
+            }
+
+            .popup-result-info{
+                padding-left: 8px;
+                font-size: 14px;
+
+                img{
+                    float: left;
+                }
+
+                .product-info{
+                    margin: 0px 8px;
+
+                    .sku{
+                        font-size: 18px;
+                    }
+                    .description{
+                        margin: 10px 0px;
+                    }
+                    .price{
+                        font-size: 16px;
+                    }
+                }
+
+                .font-bold{
+                    font-weight: 600;
+                }
+                .text-right{
+                    text-align: right;
+                }
+            }
+            
+            /* .popup-result-buttons{
+                bottom: 0;            
+                position: absolute;
+                margin-bottom: 16px;
+                width: 100%;
+            } */
+        }
+    }
+}
+
+.popup-result-buttons{
+    bottom: 0;            
+    position: absolute;
+    margin-bottom: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .base-button{
+      padding: 10px 20px;
+      border: solid 1px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 2px;
+      margin-right: 10px;
+      min-width: 150px;
+    }
+
+    .continue-button{
+      float: left;
+      background-color: #ebebeb09;
+      border-color: #ccc;
+    }
+    .continue-button:hover{
+      background-color: rgb(236, 240, 243);
+    }
+  
+    .continue-button:active{
+      background-color: rgb(226, 229, 231);
+    }      
+
+    .viewcart-button{
+      float: right;
+      background-color: #4ca2c4;
+      border-color: #4a93af;
+      color: #fff;
+    }
+    .viewcart-button:hover{
+      background-color: #55b4da;
+    }
+  
+    .viewcart-button:active{
+      background-color: #4ca2c4;
+    }     
+  }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import * as constants from '../../constants/constant.js'
-import { Cart } from '../CartPage/cart'
+import { Cart } from '../Cart/cart'
 import '../../styles/navbar.css';
 
 export default function NavBar({isLogin}){

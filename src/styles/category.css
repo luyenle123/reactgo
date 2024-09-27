@@ -44,12 +44,9 @@
             }
         }
         .category-item:hover{
-            background-color: rgb(230, 230, 230);
-        }
-        
-        /* .category-item:active{
-            background-color: rgb(230, 230, 230);
+            border-bottom: dotted 1px #cccccc9c;
             font-weight: 600;
-        }          */
+            /* background-color: rgb(230, 230, 230); */
+        }    
     }
 }

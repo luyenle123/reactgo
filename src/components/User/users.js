@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
-import { Pagination, GetConfig } from '../Pagination/pagination.js'
+import { Pagination, GetConfig, CloneConfig } from '../Pagination/pagination.js'
 import { Loader } from "../Loader/loader.js";
 import {GetUserList} from '../../services/userService.js';
 
@@ -77,7 +77,7 @@ export default function Users(){
     config.handleBackClick = handleBackClick;
     config.handleNextClick = handleNextClick;
     config.handleItemDisplayChanged = handleItemDisplayChanged;
-    config.handleSortingChanged = handleSortingChanged;    
+    config.handleSortingChanged = handleSortingChanged; 
 
     useEffect(()=>{
         async function FetchUser() {
@@ -111,6 +111,11 @@ export default function Users(){
 
 
 export function UserList({config, users}) {
+    const config1 = CloneConfig(config);
+    config1.hideDisplayPageInfo = true;
+    config1.hideDisplayOption = true;
+    config1.hideSortOption = true; 
+
   return (
     <div className="user-list-container">
         {config.hasData && <Pagination config={config}/>}
@@ -119,6 +124,7 @@ export function UserList({config, users}) {
                 return <UserItem key = {u.id} user = {u}/>
             })}
         </div>
+        {config1.hasData && <Pagination config={config1}/>}
     </div>
   )
 }

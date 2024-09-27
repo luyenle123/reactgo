@@ -73,6 +73,9 @@ const  GetPageInfo = (total, resultLength, page, pageSize, sorting) => {
     var showTo = showFrom + resultLength;
     showFrom ++;
 
+    var remainingItemCount = total - (page * pageSize);
+    var allowLoadMore = remainingItemCount > 0;
+
     return {
         total: total, 
         currentEntry: currentEntries,
@@ -83,7 +86,9 @@ const  GetPageInfo = (total, resultLength, page, pageSize, sorting) => {
         paginationNumbers: paginationNumbers,
         allPaginationNumbers: allPaginationNumbers,
         showFrom: showFrom,
-        showTo: showTo
+        showTo: showTo,
+        remainingCount: remainingItemCount,
+        allowLoadMore: allowLoadMore
     };
 }
 

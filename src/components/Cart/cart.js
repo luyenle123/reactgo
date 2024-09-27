@@ -156,7 +156,7 @@ export function ProductItem({product}){
 export const DoAddToCart = async (productId, productCode, updateStatus) => {
   var res = await AddToCart(productId, 1);
   if(res.isSuccess){
-    toast("Add '" + productCode + "' to cart successful.");
+    //toast("Add '" + productCode + "' to cart successful.");
   }
   else{
     toast('Error: ' + res.data);

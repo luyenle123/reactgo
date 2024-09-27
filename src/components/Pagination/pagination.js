@@ -6,6 +6,7 @@ const handleNextClick = (e) => {};
 const handleAddToCartClick = (e) => {};
 const handleItemDisplayChanged = (e) => {};
 const handleSortingChanged = (e) => {};
+const handleLoadMoreClick = (e) => {};
 
 export const GetConfig = (isLoading, hasData, pageInfo) => {
     return {
@@ -19,6 +20,7 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         handleBackClick:handleBackClick,
         handleNextClick:handleNextClick,
         handleAddToCartClick:handleAddToCartClick,
+        handleLoadMoreClick:handleLoadMoreClick,
         handleItemDisplayChanged: handleItemDisplayChanged,
         handleSortingChanged: handleSortingChanged
     } 
@@ -36,6 +38,7 @@ export const CloneConfig = (config) => {
         handleBackClick:config.handleBackClick,
         handleNextClick:config.handleNextClick,
         handleAddToCartClick:config.handleAddToCartClick,
+        handleLoadMoreClick: config.handleLoadMoreClick,
         handleItemDisplayChanged: config.handleItemDisplayChanged,
         handleSortingChanged: config.handleSortingChanged
     } 

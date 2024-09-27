@@ -36,6 +36,7 @@
                 border-style: solid;
                 border-width: 1px 0px 1px 1px;
                 border-color: #9797976c;
+
             }
 
             input:focus{
@@ -72,3 +73,12 @@
         }
     }
 }
+
+::placeholder {
+    color: rgb(211, 211, 211);
+    opacity: 1; /* Firefox */
+  }
+  
+  ::-ms-input-placeholder { /* Edge 12-18 */
+    color: rgb(211, 211, 211);
+  }
