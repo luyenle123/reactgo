@@ -15,6 +15,7 @@ export default function Categoryblock(){
             var res = await GetCategoryList();
             if(res.isSuccess)
             {
+                //const list = res.data.slide(0, 5);
                 setCateories(res.data);
             }
         }        
@@ -24,7 +25,7 @@ export default function Categoryblock(){
 
     const handleCategoryClick = (p) => {
 
-    }    
+    }
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function Categoryblock(){
 
             {cateories && cateories.length > 0 && 
                 <div className='category-list-container'>
-                    {cateories.map((p, i) => ( <CategoryItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
+                    {cateories.slice(0, 5).map((p, i) => ( <CategoryItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
                 </div>
             }
         </div>

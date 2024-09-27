@@ -15,8 +15,9 @@
 
     .category-list-container{
         display: flex;
-        overflow-x: auto;
-        padding: 20px 0px;        
+        overflow-x: hidden;
+        padding: 20px 0px;
+        justify-content: center;
 
         .category-block-item{
             width: 200px;
