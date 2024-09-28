@@ -1,4 +1,4 @@
-// import * as constants from '../../constants/constant';
+import * as constants from '../../constants/constant';
 import '../../styles/categoryblock.css';
 import React, { useEffect, useState } from 'react'
 import { GetCategoryList } from '../../services/productService.js';
@@ -23,9 +23,9 @@ export default function Categoryblock(){
         FetchCategory();
     }, []);
 
-    const handleCategoryClick = (p) => {
+    // const handleCategoryClick = (p) => {
 
-    }
+    // }
 
   return (
     <>
@@ -37,7 +37,7 @@ export default function Categoryblock(){
 
             {cateories && cateories.length > 0 && 
                 <div className='category-list-container'>
-                    {cateories.slice(0, 5).map((p, i) => ( <CategoryItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
+                    {cateories.slice(0, 8).map((p, i) => ( <CategoryItem key = {i} category = {p} categorySelected={categorySelected}/> ))}                
                 </div>
             }
         </div>
@@ -47,14 +47,16 @@ export default function Categoryblock(){
 
 export function CategoryItem(props){
     return(
-        <div className="category-block-item" onClick={() => props.categoryHandleClick(props.category)}> 
-            <div className='image-container'>
-                <img src={categoryIcon1} width={150} height={150} alt={props.category}/>
-            </div>
-            
-            <div className='display-text'>
-                {props.category}
-            </div>
+        <div className="category-block-item"> 
+            <a href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
+                <div className='image-container'>
+                    <img src={categoryIcon1} width={150} height={150} alt={props.category}/>
+                </div>
+                
+                <div className='display-text'>
+                    {props.category}
+                </div>
+            </a>
         </div>
     );
 }

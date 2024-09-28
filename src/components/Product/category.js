@@ -4,11 +4,11 @@ import { GetCategoryList } from '../../services/productService.js';
 import '../../styles/category.css';
 import { toast } from 'react-toastify';
 
-const Category = ({handleClick, productCount}) => {
+const Category = ({handleClick, productCount = 0, category = null}) => {
     const [cateories, setCateories] = useState([]);
-    const [categorySelected, setCategorySelected] = useState();
+    const [categorySelected, setCategorySelected] = useState(category);
 
-    //console.log('>> render category: ' + productCount);
+    console.log('>> render category: ' + category + ' / ' + categorySelected);
   
     const notify = (msg) => toast(msg);       
          
@@ -45,7 +45,7 @@ const Category = ({handleClick, productCount}) => {
         <div className='category-selection'>
             {
                 categorySelected && <>
-                    {categorySelected} (<span id='category-product-count'>0</span>) 
+                    {categorySelected} (<span id='category-product-count'>{productCount}</span>) 
                     <span className='category-selection-clear' onClick={() => handleClearClick()}>X</span>
                 </> 
             }

@@ -7,7 +7,7 @@ import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { LoaderToggle } from "../Loader/loader.js";
 import { GetConfig, CloneConfig } from '../Pagination/pagination.js'
 import { GetProductList,GetCategoryProduct } from '../../services/productService.js';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import * as constants from '../../constants/constant.js'
 import { Category, UpdateCategoryProductCount } from './category.js';
 import ProductCardItem from './productCart.js';
@@ -18,15 +18,16 @@ import CartPopupResult from '../Cart/cartPopupResult.js';
 export default function Products(){
     const [products, setProducts] = useState(undefined);
     const [pageinfo, setPageInfo] = useState({pageSize:12, sorting:1});
-    const [categorySelected, setCategorySelected] = useState();
-    const [cartProduct, setCartProduct] = useState(undefined);    
-
-    var fetchProduct = false;
-    const navigate = useNavigate();
-
-    //console.log('>> render Products');
+    const [cartProduct, setCartProduct] = useState(undefined);
+    const [categorySelected, setCategorySelected] = useState(undefined);    
+    const [searchParams, setSearchParams] = useSearchParams();
   
-    const notify = (msg) => toast(msg);    
+    const navigate = useNavigate();    
+    const cat = searchParams.get('cat');
+    const notify = (msg) => toast(msg);
+
+    var fetchProduct = false;    
+    //console.log('>> render Products');
 
     const queryData = (page) => { 
         LoaderToggle(true);
@@ -148,23 +149,43 @@ export default function Products(){
         navigate( '/' + constants.NAV_PRODUCT_DETAIL +'?id='+ pId);
     };    
 
-    useEffect(() => {
+    let catetory = categorySelected;
+    if(!catetory && cat)
+        catetory = cat;
+    
+    // console.log('CAT: ' + cat + ' / ' + categorySelected + ' : ' + catetory);
 
-        async function FetchProduct(){     
-            var res = await GetProductList(1, pageinfo.pageSize, pageinfo.sorting);
+    useEffect(() => {
+        async function FetchProduct(){
+            let res = null;
+            if(catetory && catetory.length > 0){
+                res = await GetCategoryProduct(catetory, 1, pageinfo.pageSize, pageinfo.sorting);
+            }
+            else{
+                res = await GetProductList(1, pageinfo.pageSize, pageinfo.sorting);
+            }
+                        
             if(res.isSuccess)
             {
                 setProducts(res.data.products);
                 setPageInfo(GetPageInfo(res.data.total, res.data.products.length, 1, pageinfo.pageSize, pageinfo.sorting));
-                setCategorySelected(undefined);
+                setCategorySelected(catetory);
             }
 
             LoaderToggle(false);
         }           
 
+        setSearchParams('');
         LoaderToggle(true);
         FetchProduct();
+
     }, [pageinfo.pageSize, pageinfo.sorting]);
+
+    // if(cat && cat.length > 0){
+    //     console.log(cat);
+    //     setSearchParams('');
+    //     return(<></>);
+    // }    
 
     if(!products){
         return(<></>);
@@ -220,7 +241,7 @@ export default function Products(){
         <>
             <div className='row'>
                 <div className='column left'>
-                    <Category handleClick={categoryHandleClick} productCount={products.length}/>
+                    <Category handleClick={categoryHandleClick} productCount={products.length} category={catetory}/>
                 </div>
                 <div className='column right'>
                     <div className='product-container'>

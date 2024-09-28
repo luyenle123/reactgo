@@ -40,7 +40,8 @@
     
     .load-more{
       text-align: center;
-      margin-top: 20px;
+      margin: 20px 0px 10px 0px;
+      font-size: 14px;
 
       .number{
         font-weight: 600;
@@ -50,17 +51,17 @@
         min-width: 250px;
         padding: 15px 20px;
         border: 0px;
-        background-color: #d6e7e9;
+        background-color: #dde6e7;
         border-radius: 5px;
         cursor: pointer;
       }
 
       button:hover{
-        background-color: #e1eef0;
+        background-color: #dfecee;
       }
 
       button:active{
-        background-color: #d6e7e9;
+        background-color: #dde6e7;
       }      
     }
   }

@@ -40,11 +40,6 @@ export default function Search(){
     }
   }, [text, setSearchParams]);  
 
-// const updateStatus = (b) => {
-//   LoaderToggle(false);
-//   UpdateCartInfo(null, 1);
-// }
-
 const handleAddToCartClick = (product) => {
   LoaderToggle(true);
   LoaderToggle(true);
@@ -54,9 +49,6 @@ const handleAddToCartClick = (product) => {
         });
         UpdateCartInfo(null, 1);
   });  
-
-  // var productId = parseInt(e.target.value);
-  // DoAddToCart(productId, e.target.attributes['sku'].value, updateStatus);
 };
 
 const handleSearch = async (key) => {
