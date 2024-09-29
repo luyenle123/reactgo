@@ -7,10 +7,6 @@ import { toast } from 'react-toastify';
 const Category = ({handleClick, productCount = 0, category = null}) => {
     const [cateories, setCateories] = useState([]);
     const [categorySelected, setCategorySelected] = useState(category);
-
-    console.log('>> render category: ' + category + ' / ' + categorySelected);
-  
-    const notify = (msg) => toast(msg);       
          
     useEffect(() => {
         async function FetchCategory(){     
@@ -20,7 +16,7 @@ const Category = ({handleClick, productCount = 0, category = null}) => {
                 setCateories(res.data);
             }
             else{
-                notify('Error: ' + res.data);
+                toast.error('Error: ' + res.data);
             }
         }        
 

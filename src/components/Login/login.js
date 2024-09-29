@@ -17,7 +17,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);     
     const navigate = useNavigate();
     const [ user, setUser ] = useState();
-    const [ profile, setProfile ] = useState();
+    // const [ profile, setProfile ] = useState();
 
     const inputRef = React.useRef();
 
@@ -42,11 +42,13 @@ const Login = () => {
           console.log('USER INFO: ');
           console.log(userInfo);
           console.log('--------------------');
-          setProfile(userInfo.data);
+          // setProfile(userInfo.data);
           toast.success('login success with ' + userInfo?.data?.name + '' + userInfo?.data?.email);
 
           localStorage.setItem(constants.AUTH_NAME, user?.access_token);
           localStorage.setItem(constants.AUTH_USER_NAME, userInfo?.data?.name);
+
+          navigate('/');
         }
         else{
           toast.error('login failed');
@@ -122,7 +124,7 @@ const Login = () => {
 
   const login = useGoogleLogin({
     onSuccess: tokenResponse => {
-      console.log(tokenResponse);
+      //console.log(tokenResponse);
       setUser(tokenResponse);     
     },
     onError: () => toast.error("Login Failed")    
@@ -146,13 +148,25 @@ const Login = () => {
               </div>
 
               <div className='item-block'>
-                  <input type="checkbox" name="checkbox" />
-                  <div className='checkbox-label'>Remember</div>
+                <label className='checkbox flex float-left'>
+                  <input type="checkbox" name="checkbox" autoFocus className='outline-none w-5 h-5'/> 
+                  <span className='ml-2'>Remember</span>
+                </label>
+
+                <a href={'/login'} className='hover:underline float-right'>
+                  Forgot password
+                </a>                  
+                  {/* <input type="checkbox" name="checkbox" />
+                  <div className='checkbox-label'>Remember</div> */}
               </div>
 
-              <div className='item-block'>
+              <div className='item-block mt-10'>
                 <button className='login-button-base login-button' onClick={handleLoginClick}>Login</button>
               </div>
+
+              <div className='item-block text-center'>
+                Or
+              </div>              
               
               <div className='item-block'>
                 {/* <GoogleOAuthProvider clientId={google_client_id}>
@@ -178,12 +192,6 @@ const Login = () => {
               </button>  
 
               </div>
-              
-              <div className='item-block text-center'>
-                <p>
-                  <a href='/login'>Forgot password</a>
-                </p>
-              </div>                
                 
             </div>
         </div>

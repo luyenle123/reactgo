@@ -15,6 +15,7 @@ import * as constants from './constants/constant.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchPage from './pages/search.js';
+import BlogPage from './pages/blog.js';
 
 export default function App() {
   //console.log('App');
@@ -25,14 +26,15 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path={constants.NAV_LOGIN} index element={<LoginPage />} />
-            <Route path="logout" index element={<LogoutPage />} />
+            <Route path={constants.NAV_LOGOUT} index element={<LogoutPage />} />
             <Route index element={<Home />} />
-            <Route path="Products" element={<ProductList />} />
-            <Route path="ProductDetail" element={<ProductDetailPage />} />
+            <Route path={constants.NAV_PRODUCT_LIST} element={<ProductList />} />
+            <Route path={constants.NAV_PRODUCT_DETAIL} element={<ProductDetailPage />} />
             <Route path={constants.NAV_USER_LIST} element={<UserList />} />
-            <Route path="cartdetail" element={<CartPage />} />
-            <Route path="Others" element={<OtherPage />} />
+            <Route path={constants.NAV_CART_DETAIL} element={<CartPage />} />
+            <Route path={constants.NAV_OTHERS} element={<OtherPage />} />
             <Route path={constants.NAV_SEARCH} element={<SearchPage/>} />
+            <Route path={constants.NAV_BLOG} element={<BlogPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -32,7 +32,7 @@ export default function CartPopupResult({product, handleCallback}){
                 </div>
 
                 <div className='popup-result-info'>
-                  <img src={product.thumbnail} alt={product.title} width={100} height={100}></img>
+                  <img src={product.thumbnail} alt={product.title} width={150} height={150}></img>
                   <div className='product-info'>
                     <p className='sku font-bold'>{product?.sku}</p>
                     <p className='font-bold'>{product?.title}</p>

@@ -9,15 +9,14 @@ import {GetUserList} from '../../services/userService.js';
 
 export default function Users(){
     const [users, setUsers] = useState([]);
-    const [pageinfo, setPageInfo] = useState({pageSize:15, sorting:1});
-    const [gotData, setgotData] = useState(false);
+    const [pageinfo, setPageInfo] = useState({pageSize:12, sorting:1});
     const [isLoading, setIsLoading] = useState(false);
 
     const queryData = (page) => {
         setIsLoading(true);
         setTimeout(() => {
             doFetchUser(page);
-        }, 500);
+        }, 1);
       };
       
     const doFetchUser = async (page) => {
@@ -27,7 +26,6 @@ export default function Users(){
         {
             setUsers(res.data.users);
             setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageinfo.pageSize, pageinfo.sorting));
-            setgotData(true);
         }
         else{
             toast('Error: ' + res.data);
@@ -35,49 +33,36 @@ export default function Users(){
         setIsLoading(false);
     }
 
-    // const handleClick = () => {
-    //     queryData(1);
-    // };
-
-    const handleNextClick = () => {
-        if(pageinfo.page >= pageinfo.totalPage) return;
-        var page = pageinfo.page+1;
-        if(page > pageinfo.totalPage){ page = pageinfo.page}
-        queryData(page);
-    };
-    
-    const handleBackClick = () => {
-        if(pageinfo.page <= 1) return;
-        var page = pageinfo.page-1;
-        if(page <= 0){ page = 1}
-        queryData(page);
-    };
-
-    const handlePagination = (e) => {
-        if(parseInt(e.target.value) === pageinfo.page) return;
-        queryData(e.target.value);
-    };
-
-
-    const handleItemDisplayChanged = (e) => {
-        var newPageSize = parseInt(e.target.value);
-        pageinfo.pageSize = newPageSize;
-
-        queryData(1);
-    };
-
-    const handleSortingChanged = (e) => {
+    const PageChanged = (page, pageSize) => {
       
-    };    
+        if(page !== pageinfo.page){
+            pageinfo.pageSize = pageSize;
+            queryData(page);
+            return;
+        }
+
+        if(pageSize !== pageinfo.pageSize){
+            pageinfo.pageSize = pageSize;
+            queryData(1);
+            return;
+        }
+
+    };
+
+    
    
+    const gotData = users && users.length > 0;
     const config = GetConfig(isLoading, gotData, pageinfo);
     config.hideSortOption = true;
     config.hideDisplayOption = false;
-    config.handlePaginationNumberClick = handlePagination;
-    config.handleBackClick = handleBackClick;
-    config.handleNextClick = handleNextClick;
-    config.handleItemDisplayChanged = handleItemDisplayChanged;
-    config.handleSortingChanged = handleSortingChanged; 
+    config.PageChanged = PageChanged;
+
+
+    // config.handlePaginationNumberClick = handlePagination;
+    // config.handleBackClick = handleBackClick;
+    // config.handleNextClick = handleNextClick;
+    // config.handleItemDisplayChanged = handleItemDisplayChanged;
+    // config.handleSortingChanged = handleSortingChanged;
 
     useEffect(()=>{
         async function FetchUser() {
@@ -86,7 +71,7 @@ export default function Users(){
             {
                 setUsers(res.data.users);
                 setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageinfo.pageSize, pageinfo.sorting));
-                setgotData(true);
+                //setgotData(true);
             }
             else{
                 toast('Error: ' + res.data);

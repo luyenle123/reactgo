@@ -25,17 +25,20 @@ export default function NavBar({isLogin}){
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to={'/' + constants.NAV_USER_LIST}>Users</Link>
-                    </li>          
-                    <li>
                         <Link to={'/' + constants.NAV_PRODUCT_LIST}>Products</Link>
                     </li>
                     <li>
                         <Link to={'/' + constants.NAV_SEARCH}>Search</Link>
                     </li>                              
                     <li>
-                        <Link to={'/' + constants.NAV_CART_DETAIL}>Cart Detail</Link>
-                    </li>                      
+                        <Link to={'/' + constants.NAV_CART_DETAIL}>Cart</Link>
+                    </li>
+                    <li>
+                        <Link to={'/' + constants.NAV_USER_LIST}>Users</Link>
+                    </li>
+                    <li>
+                        <Link to={'/' + constants.NAV_BLOG}>Blog</Link>
+                    </li>                                        
                     <li>
                         <Link to={'/' + constants.NAV_OTHERS}>Others</Link>
                     </li>                    

@@ -54,8 +54,11 @@
   }
   
 .welcome{
-    margin-top: 5px;
+    margin-top: 1px;
+    padding: 5px 10px;
     color: #fff;
+    border-radius: 5px;
+    border: solid 1px #cccccc;
 
     span{
         font-weight: 600;

@@ -1,20 +1,4 @@
-const BuildSortParam = (type) => {
-  switch(type){
-      case(1):
-          return 'sortBy=price&order=asc';
-      case(2):
-          return 'sortBy=price&order=desc';
-      case(3):
-          return 'sortBy=title&order=asc';
-      case(4):
-          return 'sortBy=title&order=desc';
-      default:
-          return 'sortBy=price&order=asc';
-  }
-}
-
 const  GetPageInfo = (total, resultLength, page, pageSize, sorting) => {
-    //var total = res.total;
     var totalPageinD = total / pageSize;
     var totalPageInt = parseInt(totalPageinD, 10);
     if(totalPageInt < totalPageinD)
@@ -92,4 +76,4 @@ const  GetPageInfo = (total, resultLength, page, pageSize, sorting) => {
     };
 }
 
-export {GetPageInfo, BuildSortParam};
+export {GetPageInfo};

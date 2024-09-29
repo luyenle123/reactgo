@@ -3,12 +3,11 @@ import '../../styles/categoryblock.css';
 import React, { useEffect, useState } from 'react'
 import { GetCategoryList } from '../../services/productService.js';
 
-import categoryIcon1 from '../../images/categories/1.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Link } from 'react-router-dom';
 
 export default function Categoryblock(){
     const [cateories, setCateories] = useState([]);
-    const [categorySelected, setCategorySelected] = useState();
-     
          
     useEffect(() => {
         async function FetchCategory(){     
@@ -34,10 +33,10 @@ export default function Categoryblock(){
                 Browse a category
                 <hr/>
             </div>
-
+            {/* .slice(0, 8) */}
             {cateories && cateories.length > 0 && 
                 <div className='category-list-container'>
-                    {cateories.slice(0, 8).map((p, i) => ( <CategoryItem key = {i} category = {p} categorySelected={categorySelected}/> ))}                
+                    {cateories.map((p, i) => ( <CategoryItem key = {i} id={i+1} category = {p} /> ))}                
                 </div>
             }
         </div>
@@ -48,15 +47,20 @@ export default function Categoryblock(){
 export function CategoryItem(props){
     return(
         <div className="category-block-item"> 
-            <a href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
+            <Link href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
                 <div className='image-container'>
-                    <img src={categoryIcon1} width={150} height={150} alt={props.category}/>
+                    <LazyLoadImage
+                        alt={props.category}
+                        height={120}
+                        src={'../images/categories/b/' + props.id +'.svg'}
+                        width={120}/>
+                    {/* <img src={'../images/categories/b/' + props.id +'.svg'} width={150} height={150} alt={props.category}/> */}
                 </div>
                 
                 <div className='display-text'>
                     {props.category}
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }

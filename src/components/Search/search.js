@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import '../../styles/search.css';
 import '../../styles/searchBox.css';
 import SearchBox from './searchBox.js';
-import ProductCardItem from '../Product/productCart.js';
+import ProductCardItem from '../Product/productCard.js';
 import CartPopupResult from '../Cart/cartPopupResult.js';
 
 export default function Search(){

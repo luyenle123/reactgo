@@ -10,7 +10,7 @@ import { GetProductList,GetCategoryProduct } from '../../services/productService
 import { useNavigate, useSearchParams } from "react-router-dom";
 import * as constants from '../../constants/constant.js'
 import { Category, UpdateCategoryProductCount } from './category.js';
-import ProductCardItem from './productCart.js';
+import ProductCardItem from './productCard.js';
 import CartPopupResult from '../Cart/cartPopupResult.js';
 
 /*PRODUCT LISTING*/
@@ -181,14 +181,8 @@ export default function Products(){
 
     }, [pageinfo.pageSize, pageinfo.sorting]);
 
-    // if(cat && cat.length > 0){
-    //     console.log(cat);
-    //     setSearchParams('');
-    //     return(<></>);
-    // }    
-
     if(!products){
-        return(<></>);
+        return(<><div className='empty-container'></div></>);
     }
 
     const gotData = products ? true : false;
@@ -280,7 +274,6 @@ export function  ProductList(props) {
                     return <ProductCardItem key = {p.id} product = {p} handleAddToCartClick={props.config.handleAddToCartClick}/>
                 })}
             </div>
-            {/* {props.products && props.products.length > 0 && <Pagination config={config1}/>} */}
 
             {props.config.pageInfo.allowLoadMore && 
                 <div className='load-more'>

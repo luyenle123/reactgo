@@ -19,6 +19,11 @@
   width: 100%;
 }
 
+.empty-container{
+  padding: 10px;
+  min-height: 800px;
+}
+
 .product-container{
   padding: 10px;
 

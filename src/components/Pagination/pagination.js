@@ -1,12 +1,10 @@
 import '../../styles/pagination.css';
 
-const handlePaginationNumberClick = (e) => {};
-const handleBackClick = (e) => {};
-const handleNextClick = (e) => {};
 const handleAddToCartClick = (e) => {};
-const handleItemDisplayChanged = (e) => {};
-const handleSortingChanged = (e) => {};
 const handleLoadMoreClick = (e) => {};
+
+const handleItemDisplayChanged = (e) => {};
+const PageChanged = (page, paggeSize) => {}  
 
 export const GetConfig = (isLoading, hasData, pageInfo) => {
     return {
@@ -16,13 +14,12 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideSortOption: false,
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
-        handlePaginationNumberClick: handlePaginationNumberClick,
-        handleBackClick:handleBackClick,
-        handleNextClick:handleNextClick,
+
         handleAddToCartClick:handleAddToCartClick,
         handleLoadMoreClick:handleLoadMoreClick,
+
         handleItemDisplayChanged: handleItemDisplayChanged,
-        handleSortingChanged: handleSortingChanged
+        PageChanged: PageChanged
     } 
 }
 
@@ -34,18 +31,54 @@ export const CloneConfig = (config) => {
         hideSortOption: config.hideSortOption,
         hideDisplayOption: config.hideDisplayOption,
         hideDisplayPageInfo: config.hideDisplayPageInfo,
-        handlePaginationNumberClick: config.handlePaginationNumberClick,
-        handleBackClick:config.handleBackClick,
-        handleNextClick:config.handleNextClick,
+
         handleAddToCartClick:config.handleAddToCartClick,
         handleLoadMoreClick: config.handleLoadMoreClick,
-        handleItemDisplayChanged: config.handleItemDisplayChanged,
-        handleSortingChanged: config.handleSortingChanged
+
+        PageChanged: config.PageChanged,
     } 
 }
 
 export const Pagination = ({config}) => {
-    //console.log('Pagination');
+    const handlePaginationNumberClick = (e) => {
+        if(parseInt(e.target.value) === config.pageInfo.page) return;
+        if(config.PageChanged)
+        {
+            config.PageChanged(e.target.value, config.pageInfo.pageSize);
+        }
+    };
+    const handleBackClick = (e) => {
+        if(config.pageInfo.page <= 1) return;
+        var page = config.pageInfo.page-1;
+        if(page <= 0){ page = 1}
+        
+        if(config.PageChanged)
+        {
+            config.PageChanged(page, config.pageInfo.pageSize);
+        }
+    };
+
+    const handleNextClick = (e) => {
+        if(config.pageInfo.page >= config.pageInfo.totalPage) return;
+        var page = config.pageInfo.page + 1;
+        if(page > config.pageInfo.totalPage){ 
+            page = config.pageInfo.page
+        }
+        
+        if(config.PageChanged)
+        {
+            config.PageChanged(page, config.pageInfo.pageSize);
+        }
+    };
+
+    const handleItemDisplayChanged = (e) => {
+        var newPageSize = parseInt(e.target.value);
+
+        if(config.PageChanged)
+        {
+            config.PageChanged(config.pageInfo.page, newPageSize);
+        }        
+    };  
 
     if(config === undefined){
         config = GetConfig(false, false, {});       
@@ -53,13 +86,13 @@ export const Pagination = ({config}) => {
 
     return(
         <div className="pagination">
-            <button onClick={config.handleBackClick} className="pagination-number">&lt;&lt;</button>
+            <button onClick={handleBackClick} className="pagination-number">&lt;&lt;</button>
             {config.pageInfo.paginationNumbers.map((p) => (
-                <PaginationButton key={p} pageinfo={config.pageInfo} page={p} pageNumberBlick={config.handlePaginationNumberClick}/>
+                <PaginationButton key={p} pageinfo={config.pageInfo} page={p} pageNumberBlick={handlePaginationNumberClick}/>
             ))}
-            <button onClick={config.handleNextClick} className="pagination-number">&gt;&gt;</button>
+            <button onClick={handleNextClick} className="pagination-number">&gt;&gt;</button>
 
-            <select onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+            <select onChange={handlePaginationNumberClick} value={config.pageInfo.page}>
                 {config.pageInfo.allPaginationNumbers.map((p) => (
                     <option key={p} value={p}>{p}</option>
                 ))}
@@ -67,9 +100,7 @@ export const Pagination = ({config}) => {
 
             <DisplayPageInfo config={config}/>
 
-            <DisplayOption config={config}/>
-
-            <SortOption config={config}/>
+            <DisplayOption config={config} handleItemDisplayChanged={handleItemDisplayChanged}/>
 
         </div>
     );
@@ -89,9 +120,9 @@ export function DisplayPageInfo ({config}) {
     }
 };
 
-export function DisplayOption ({config}) {
-    if(config === undefined){ return;}
-    if(config.hideDisplayOption){
+export function DisplayOption (props) {
+    if(props.config === undefined){ return;}
+    if(props.config.hideDisplayOption){
         return(
             <></>
         );
@@ -101,7 +132,7 @@ export function DisplayOption ({config}) {
             <>
                 &nbsp;
                 <span className="page-number">Show: </span>
-                <select onChange={config.handleItemDisplayChanged} value={config.pageInfo.pageSize}>
+                <select onChange={props.handleItemDisplayChanged} value={props.config.pageInfo.pageSize}>
                     <option key={1} value={8}>8</option>
                     <option key={2} value={12}>12</option>
                     <option key={3} value={16}>16</option>

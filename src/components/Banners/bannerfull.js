@@ -1,36 +1,32 @@
 import React, { useEffect, useState } from 'react'
 
 import '../../styles/bannerfull.css';
-import bannerImg1 from '../../images/banner_001_400.jpg';
-import bannerImg2 from '../../images/banner_002_400.jpg';
-import bannerImg3 from '../../images/banner_003_400.jpg';
-import bannerImg4 from '../../images/banner_004_400.jpg';
 
 export default function Bannerfull(){
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const bannerImages = [
-      bannerImg1,
-      bannerImg2,
-      bannerImg3,
-      bannerImg4
+      '../images/banners/banner_001_400.jpg',
+      '../images/banners/banner_002_400.jpg',
+      '../images/banners/banner_003_400.jpg',
+      '../images/banners/banner_004_400.jpg',
     ];
 
-      useEffect(() => {
-        // Set up an interval to change the image every 10 seconds
-        const intervalId = setInterval(() => {
-          setCurrentImageIndex(prevIndex => 
-            (prevIndex + 1) % bannerImages.length
-          );
-        }, 10000); // 10000 milliseconds = 10 seconds
-    
-        // Cleanup the interval on component unmount
-        return () => clearInterval(intervalId);
-      }, []);
+  useEffect(() => {
+    // Set up an interval to change the image every 10 seconds
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex(prevIndex => 
+        (prevIndex + 1) % bannerImages.length
+      );
+    }, 10000); // 10000 milliseconds = 10 seconds
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [bannerImages.length]);
 
   return (
     <div className='banner-full-container'>
-      {bannerImages.map((image, index) => (
+      {bannerImages.map((image, index) => (     
         <img 
           key={index}
           src={image}
@@ -43,8 +39,7 @@ export default function Bannerfull(){
             transition: 'opacity 1s ease-in-out'
           }} 
         />
-      ))}        
-        {/* <img id='banner-image' src={bannerImages[currentImageIndex]} tyle={{ opacity: '1' }} alt='cart' height='100%' width={'100%'}/> */}
+      ))}
         <div className='text-area'>
             <div className='header'>
                 GO GO REACT
