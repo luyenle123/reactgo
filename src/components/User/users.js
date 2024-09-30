@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { Pagination, GetConfig, CloneConfig } from '../Pagination/pagination.js'
-import { Loader, LoaderToggle } from "../Loader/loader.js";
+import { LoaderToggle } from "../Loader/loader.js";
 import {GetUserList} from '../../services/userService.js';
 
 export default function Users(){

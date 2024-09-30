@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import '../../styles/bannerfull.css';
 
 export default function Bannerfull(){

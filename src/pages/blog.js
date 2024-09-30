@@ -4,7 +4,7 @@ const BlogList = React.lazy(() => import('../components/Blog/list'));
 export default function BlogPage() {
     return (
         <>
-            <Suspense fallback = {<p>Loading...</p>}>
+            <Suspense fallback = {<p>GO GO Blog Loading...</p>}>
                 <BlogList/>
             </Suspense>
         </>

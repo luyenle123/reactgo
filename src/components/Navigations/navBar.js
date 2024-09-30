@@ -4,7 +4,7 @@ import * as constants from '../../constants/constant.js'
 import { Cart } from '../Cart/cart'
 import '../../styles/navbar.css';
 
-export default function NavBar({isLogin}){
+export default function NavBar(isLogin){
   return (
     <div  className="navigation-container">          
     <nav className="navigation">

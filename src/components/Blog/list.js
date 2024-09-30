@@ -6,11 +6,15 @@ import { GetConfig, Pagination } from '../Pagination/pagination';
 import { toast } from 'react-toastify';
 import { GetPageInfo } from '../Pagination/paginationUtils';
 import { LoaderToggle } from '../Loader/loader';
+import PostItem from './blogItem';
+import PostItemEmpty from './blogItemEmpty';
 
 export default function BlogList() {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState(undefined);
     const [isLoading, setIsLoading] = useState(false);
-    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});    
+    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
+
+    const emptyPosts = [{},{},{},{},{},{},{},{},{},{},{},{}];
 
     useEffect(() => {
         async function fetchPosts() {                
@@ -25,6 +29,7 @@ export default function BlogList() {
         setIsLoading(true);
         LoaderToggle(true);
         fetchPosts();
+        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -44,9 +49,9 @@ export default function BlogList() {
         LoaderToggle(false);
     }    
   
-    if(!posts){
-        return(<>Fetch Blog ...</>);
-    }
+    // if(!posts){
+    //     return(<>Fetch Blog ...</>);
+    // }
 
     const PageChanged = (page, pageSize) => {
         if(page !== pageInfo.page){
@@ -68,7 +73,14 @@ export default function BlogList() {
     config.hideSortOption = true;
     config.hideDisplayOption = true;
     config.hideDisplayPageInfo = true;
+    config.hidePageOption = true;
     config.PageChanged = PageChanged;
+
+    const emptyConfig = GetConfig(isLoading, true, GetPageInfo(12, 12, 1, pageInfo.pageSize, pageInfo.sorting));
+    config.hideSortOption = true;
+    config.hideDisplayOption = true;
+    config.hideDisplayPageInfo = true;
+    config.hidePageOption = true;
 
     return (
         <div className='blog-conatiner'>
@@ -77,29 +89,31 @@ export default function BlogList() {
             </div>
           
             <div className='blog-list-wrapper'>
-                {config.hasData && <Pagination config={config}/>}          
+                {!posts ? 
+                    <>
+                        <div className='empty-item-without-color'>
+                            <Pagination config={emptyConfig}/>
+                        </div>
+                    </> 
+                    : 
+                    <>{config.hasData && <Pagination config={config}/>}</>
+                }
+
                 <div className="blog-list">
-                    {posts.map((post, i) => (
-                        <PostItem key={i} post={post}/>
-                    ))}
+                    {!posts ? 
+                    <>
+                        {emptyPosts.map((post, i) => (
+                            <PostItemEmpty key={i} post={post}/>
+                        ))}                    
+                    </> 
+                    : 
+                    <>
+                        {posts.map((post, i) => (
+                            <PostItem key={i} post={post}/>
+                        ))}                    
+                    </>}
                 </div>
             </div>                 
         </div>
     )
-}
-
-export function PostItem(props){
-    return(
-        <>
-            <div className='blog-list-item'>
-                <div className='blog-item-header'>
-                    {props.post.title}
-                </div>
-
-                {/* <div className='blog-item-comment-list'>
-
-                </div> */}
-            </div>
-        </>
-    );
 }

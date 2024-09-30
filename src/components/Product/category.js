@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const Category = ({handleClick, productCount = 0, category = null}) => {
     const [cateories, setCateories] = useState([]);
     const [categorySelected, setCategorySelected] = useState(category);
+    const emptyCategories = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
          
     useEffect(() => {
         async function FetchCategory(){     
@@ -46,11 +47,16 @@ const Category = ({handleClick, productCount = 0, category = null}) => {
                 </> 
             }
         </div>
-        {cateories && cateories.length > 0 && 
-            <div className='category-list-container'>
-                {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
-            </div>
+        <div className='category-list-container'>
+        {cateories && cateories.length > 0 ? 
+            <>
+                {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
+            </> : 
+            <>
+                {emptyCategories.map((p, i) => ( <CategoryItemEmpty key = {i} /> ))}
+            </>
         }
+        </div>
     </div>
   )
 }
@@ -69,6 +75,16 @@ export function CategoryItem(props){
         <div className="category-item" onClick={() => props.categoryHandleClick(props.category)}> 
             <div className={props.categorySelected === props.category ? "category-item-text active" : "category-item-text"}>
                 {props.category}
+            </div>            
+        </div>
+    );
+}
+
+export function CategoryItemEmpty(){
+    return(
+        <div className="category-item empty-item"> 
+            <div className='category-item-text'>
+                category name
             </div>            
         </div>
     );

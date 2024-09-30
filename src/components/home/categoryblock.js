@@ -1,13 +1,13 @@
 import * as constants from '../../constants/constant';
 import '../../styles/categoryblock.css';
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { GetCategoryList } from '../../services/productService.js';
-
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 
-export default function Categoryblock(){
+const Categoryblock = () => {
     const [cateories, setCateories] = useState([]);
+    const emptyCategories = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
          
     useEffect(() => {
         async function FetchCategory(){     
@@ -20,7 +20,7 @@ export default function Categoryblock(){
         }        
 
         FetchCategory();
-    }, []);
+    }, []); 
 
   return (
     <>
@@ -30,11 +30,15 @@ export default function Categoryblock(){
                 <hr/>
             </div>
             {/* .slice(0, 8) */}
-            {cateories && cateories.length > 0 && 
-                <div className='category-list-container'>
-                    {cateories.map((p, i) => ( <CategoryItem key = {i} id={i+1} category = {p} /> ))}                
-                </div>
-            }
+            <div className='category-list-container'>
+                {cateories && cateories.length > 0 ? 
+                <>
+                    {cateories.map((p, i) => ( <CategoryItem key = {i} id={i+1} category = {p} /> ))}
+                </> : 
+                <>
+                    {emptyCategories.map((p, i) => ( <EmptyCategoryItem key = {i} /> ))}
+                </> }
+            </div>
         </div>
     </>
   )
@@ -60,3 +64,21 @@ export function CategoryItem(props){
         </div>
     );
 }
+
+export function EmptyCategoryItem(){
+    return(
+        <div className="category-block-item empty-item"> 
+            <div className='image-container'>
+                <div className='empty-image  bg-gray'>
+
+                </div>
+            </div>
+            
+            <div className='display-text'>
+                category name
+            </div>
+        </div>
+    );
+}
+
+export default memo(Categoryblock);

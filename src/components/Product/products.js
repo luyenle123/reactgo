@@ -11,16 +11,18 @@ import { useSearchParams } from "react-router-dom";
 import { Category, UpdateCategoryProductCount } from './category.js';
 import ProductCardItem from './productCard.js';
 import CartPopupResult from '../Cart/cartPopupResult.js';
+import ProductCardItemEmpty from './productCardEmpty.js';
 
 /*PRODUCT LISTING*/
 
 export default function Products(){
-    const [products, setProducts] = useState(undefined);
+    const [products, setProducts] = useState([]);
     const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
     const [cartProduct, setCartProduct] = useState(undefined);
     const [categorySelected, setCategorySelected] = useState(undefined);    
     const [searchParams, setSearchParams] = useSearchParams();
   
+    const emptyProducts = [{},{},{},{},{},{},{},{},{},{},{},{}];
     const cat = searchParams.get('cat');
     const notify = (msg) => toast(msg);
 
@@ -32,7 +34,7 @@ export default function Products(){
 
         setTimeout(() => {
             doFetchProduct(page);
-        }, 500);
+        }, 1);
     };      
       
     const doFetchProduct = async (page) => {
@@ -145,9 +147,9 @@ export default function Products(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); 
 
-    if(!products){
-        return(<><div className='empty-container'></div></>);
-    }
+    // if(!products){
+    //     return(<><div className='empty-container'></div></>);
+    // }
 
     const gotData = products ? true : false;
     const config = GetConfig(false, gotData, pageInfo);
@@ -192,11 +194,11 @@ export default function Products(){
         <>
             <div className='row'>
                 <div className='column left'>
-                    <Category handleClick={categoryHandleClick} productCount={products.length} category={catetory}/>
+                    <Category handleClick={categoryHandleClick} productCount={products?.length} category={catetory}/>
                 </div>
                 <div className='column right'>
                     <div className='product-container'>
-                    <ProductList config={config} products={products}/>
+                    <ProductList config={config} products={products} emptyProducts={emptyProducts}/>
                     </div> 
                 </div>
             </div>
@@ -207,26 +209,34 @@ export default function Products(){
 }
 
 export function ProductList(props) {
-    if(props.products.length <= 0)
-    {
-        return(
-            <div className="product-list-container">
-                { 
-                    <div className="product-flex">
-                        <div className="no-product">No Product</div>
-                    </div>
-                }
-            </div>
-        );
-    }
+    // if(props.products.length <= 0)
+    // {
+    //     return(
+    //         <div className="product-list-container">
+    //             { 
+    //                 <div className="product-flex">
+    //                     <div className="no-product">No Product</div>
+    //                 </div>
+    //             }
+    //         </div>
+    //     );
+    // }
 
   return (        
         <div className="product-list-container">
             {/* {props.products && props.products.length > 0 && <Pagination config={props.config}/>} */}
             <div className="product-flex">
-                {props.products.map((p) => {
-                    return <ProductCardItem key = {p.id} product = {p} handleAddToCartClick={props.config.handleAddToCartClick}/>
-                })}
+                {props.products && props.products.length > 0 ? 
+                <>
+                    {props.products.map((p) => {
+                        return <ProductCardItem key = {p.id} product = {p} handleAddToCartClick={props.config.handleAddToCartClick}/>
+                    })}                
+                </> : 
+                <>
+                    {props.emptyProducts.map((p, i) => {
+                        return <ProductCardItemEmpty key = {i}/>
+                    })}                
+                </>}
             </div>
 
             {props.config.pageInfo.allowLoadMore && 

@@ -8,7 +8,7 @@ const Users = React.lazy(() => import('../components/User/users.js'));
 const UserList = () => {
     return (
       <>
-        <Suspense fallback = {<p>Loading...</p>}>
+        <Suspense fallback = {<p>GO GO - User Loading...</p>}>
           <Users/>
         </Suspense>
       </>

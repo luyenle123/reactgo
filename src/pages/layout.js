@@ -1,6 +1,6 @@
 import '../styles/layout.css';
 import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import * as constants from '../constants/constant.js'
 import { Loader } from '../components/Loader/loader.js';
 import { IsLogin } from '../services/userService.js';
@@ -10,21 +10,22 @@ import NavBar from '../components/Navigations/navBar.js';
 
 const Layout = () => {
     const navigate = useNavigate();
-
     var isLogin = IsLogin();
+    const navBar = useMemo(() => NavBar(isLogin), [isLogin]);
+
     useEffect(() => {
         if(!IsLogin()){
             navigate('/' + constants.NAV_LOGIN)
         }
-    }, [navigate]);
 
-    //console.log('>> render layout');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     
     const mainContainerClass = isLogin ? 'main-container' : 'main-container-login';
 
   return (
     <>
-    {isLogin && <NavBar isLogin={isLogin}/>}
+        {isLogin && <>{navBar}</>}
         <div className={mainContainerClass}>
             <Loader isActive={false}/>
             {isLogin && <Bannerfull/> }

@@ -2,7 +2,6 @@ import '../../styles/pagination.css';
 
 const handleAddToCartClick = (e) => {};
 const handleLoadMoreClick = (e) => {};
-
 const handleItemDisplayChanged = (e) => {};
 const PageChanged = (page, paggeSize) => {}  
 
@@ -14,6 +13,7 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideSortOption: false,
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
+        hidePageOption: false,
 
         handleAddToCartClick:handleAddToCartClick,
         handleLoadMoreClick:handleLoadMoreClick,
@@ -31,6 +31,7 @@ export const CloneConfig = (config) => {
         hideSortOption: config.hideSortOption,
         hideDisplayOption: config.hideDisplayOption,
         hideDisplayPageInfo: config.hideDisplayPageInfo,
+        hidePageOption: config.hidePageOption,
 
         handleAddToCartClick:config.handleAddToCartClick,
         handleLoadMoreClick: config.handleLoadMoreClick,
@@ -92,11 +93,13 @@ export const Pagination = ({config}) => {
             ))}
             <button onClick={handleNextClick} className="pagination-number">&gt;&gt;</button>
 
-            <select onChange={handlePaginationNumberClick} value={config.pageInfo.page}>
-                {config.pageInfo.allPaginationNumbers.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                ))}
-            </select>
+            {!config.hidePageOption && 
+                <select onChange={handlePaginationNumberClick} value={config.pageInfo.page}>
+                    {config.pageInfo.allPaginationNumbers.map((p) => (
+                        <option key={p} value={p}>{p}</option>
+                    ))}
+                </select>
+            }
 
             <DisplayPageInfo config={config}/>
 
