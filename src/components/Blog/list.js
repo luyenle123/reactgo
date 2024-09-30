@@ -29,7 +29,7 @@ export default function BlogList() {
         setIsLoading(true);
         LoaderToggle(true);
         fetchPosts();
-        
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -77,10 +77,10 @@ export default function BlogList() {
     config.PageChanged = PageChanged;
 
     const emptyConfig = GetConfig(isLoading, true, GetPageInfo(12, 12, 1, pageInfo.pageSize, pageInfo.sorting));
-    config.hideSortOption = true;
-    config.hideDisplayOption = true;
-    config.hideDisplayPageInfo = true;
-    config.hidePageOption = true;
+    emptyConfig.hideSortOption = true;
+    emptyConfig.hideDisplayOption = true;
+    emptyConfig.hideDisplayPageInfo = true;
+    emptyConfig.hidePageOption = true;
 
     return (
         <div className='blog-conatiner'>
@@ -91,7 +91,7 @@ export default function BlogList() {
             <div className='blog-list-wrapper'>
                 {!posts ? 
                     <>
-                        <div className='empty-item-without-color'>
+                        <div className='empty-item'>
                             <Pagination config={emptyConfig}/>
                         </div>
                     </> 
