@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { GetPostList } from '../../services/blogService';
-import { Link } from 'react-router-dom';
 
 import '../../styles/blog.css';
 import { GetConfig, Pagination } from '../Pagination/pagination';
@@ -11,14 +10,14 @@ import { LoaderToggle } from '../Loader/loader';
 export default function BlogList() {
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [pageinfo, setPageInfo] = useState({pageSize:12, sorting:1});    
+    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});    
 
     useEffect(() => {
         async function fetchPosts() {                
-            const res = await GetPostList(1, pageinfo.pageSize, pageinfo.sorting);
+            const res = await GetPostList(1, pageInfo.pageSize, pageInfo.sorting);
   
             setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageinfo.pageSize, pageinfo.sorting));            
+            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageInfo.pageSize, pageInfo.sorting));            
             setIsLoading(false);
             LoaderToggle(false);
         }
@@ -26,16 +25,17 @@ export default function BlogList() {
         setIsLoading(true);
         LoaderToggle(true);
         fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const queryData = async (page) => {
         LoaderToggle(true);
         setIsLoading(true);
-        var res = await GetPostList(page, pageinfo.pageSize, pageinfo.sorting);
+        var res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting);
         if(res.isSuccess)
         {
             setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageinfo.pageSize, pageinfo.sorting));
+            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageInfo.pageSize, pageInfo.sorting));
         }
         else{
             toast('Error: ' + res.data);
@@ -49,14 +49,14 @@ export default function BlogList() {
     }
 
     const PageChanged = (page, pageSize) => {
-        if(page !== pageinfo.page){
-            pageinfo.pageSize = pageSize;
+        if(page !== pageInfo.page){
+            pageInfo.pageSize = pageSize;
             queryData(page);
             return;
         }
 
-        if(pageSize !== pageinfo.pageSize){
-            pageinfo.pageSize = pageSize;
+        if(pageSize !== pageInfo.pageSize){
+            pageInfo.pageSize = pageSize;
             queryData(1);
             return;
         }
@@ -64,7 +64,7 @@ export default function BlogList() {
     };    
 
     const gotData = posts && posts.length > 0;
-    const config = GetConfig(isLoading, gotData, pageinfo);
+    const config = GetConfig(isLoading, gotData, pageInfo);
     config.hideSortOption = true;
     config.hideDisplayOption = true;
     config.hideDisplayPageInfo = true;

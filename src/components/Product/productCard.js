@@ -1,6 +1,7 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as constants from '../../constants/constant.js'
 import '../../styles/productCart.css';
+import { Link } from 'react-router-dom';
 
 export default function ProductCardItem(props){
     let cardcontainersizeclass = 'product-card-container-w-default';
@@ -15,10 +16,10 @@ export default function ProductCardItem(props){
         <div className={'product-card-container ' + cardcontainersizeclass}>
             <div className={'product-card ' + cardbodysizeclass}> 
                     <div className="product-img">
-                        <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
+                        <Link href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
                             <LazyLoadImage className='product-image' alt={props.category} src={props.product.thumbnail}/>
                             {/* <img className='product-image' src={props.product.thumbnail} alt={props.product.title} loading='lazy'/> */}
-                        </a>
+                        </Link>
                     </div>
 
                     <p className="product-title">{props.product.title}</p>

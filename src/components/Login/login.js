@@ -86,7 +86,7 @@ const Login = () => {
         // })
         // .catch((err) => console.log('ERROR: ' + err));
       }
-    }, [ user ]);
+    }, [ user, navigate ]);
   
     
     const emailChangeHandle = (e) => {

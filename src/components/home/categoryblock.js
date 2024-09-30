@@ -22,10 +22,6 @@ export default function Categoryblock(){
         FetchCategory();
     }, []);
 
-    // const handleCategoryClick = (p) => {
-
-    // }
-
   return (
     <>
         <div className='category-block-container'>

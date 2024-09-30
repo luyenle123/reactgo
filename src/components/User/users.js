@@ -4,87 +4,86 @@ import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { Pagination, GetConfig, CloneConfig } from '../Pagination/pagination.js'
-import { Loader } from "../Loader/loader.js";
+import { Loader, LoaderToggle } from "../Loader/loader.js";
 import {GetUserList} from '../../services/userService.js';
 
 export default function Users(){
     const [users, setUsers] = useState([]);
-    const [pageinfo, setPageInfo] = useState({pageSize:12, sorting:1});
+    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
     const [isLoading, setIsLoading] = useState(false);
 
-    const queryData = (page) => {
+    const queryData = async (page) => {
+        LoaderToggle(true);
         setIsLoading(true);
-        setTimeout(() => {
-            doFetchUser(page);
-        }, 1);
-      };
-      
-    const doFetchUser = async (page) => {
-        var skip = (page - 1) * pageinfo.pageSize;
-        var res = await GetUserList(page, pageinfo.pageSize, skip);
+        var skip = (page - 1) * pageInfo.pageSize;
+        var res = await GetUserList(page, pageInfo.pageSize, skip);
         if(res.isSuccess)
         {
             setUsers(res.data.users);
-            setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageinfo.pageSize, pageinfo.sorting));
+            setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageInfo.pageSize, pageInfo.sorting));
         }
         else{
             toast('Error: ' + res.data);
         }
+        LoaderToggle(false);
         setIsLoading(false);
-    }
+    };
+      
+    // const doFetchUser = async (page) => {
+    //     var skip = (page - 1) * pageInfo.pageSize;
+    //     var res = await GetUserList(page, pageInfo.pageSize, skip);
+    //     if(res.isSuccess)
+    //     {
+    //         setUsers(res.data.users);
+    //         setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageInfo.pageSize, pageInfo.sorting));
+    //     }
+    //     else{
+    //         toast('Error: ' + res.data);
+    //     }
+    //     setIsLoading(false);
+    // }
 
     const PageChanged = (page, pageSize) => {
-      
-        if(page !== pageinfo.page){
-            pageinfo.pageSize = pageSize;
+        if(page !== pageInfo.page){
+            pageInfo.pageSize = pageSize;
             queryData(page);
             return;
         }
 
-        if(pageSize !== pageinfo.pageSize){
-            pageinfo.pageSize = pageSize;
+        if(pageSize !== pageInfo.pageSize){
+            pageInfo.pageSize = pageSize;
             queryData(1);
             return;
         }
-
     };
 
-    
-   
     const gotData = users && users.length > 0;
-    const config = GetConfig(isLoading, gotData, pageinfo);
+    const config = GetConfig(isLoading, gotData, pageInfo);
     config.hideSortOption = true;
     config.hideDisplayOption = false;
     config.PageChanged = PageChanged;
 
-
-    // config.handlePaginationNumberClick = handlePagination;
-    // config.handleBackClick = handleBackClick;
-    // config.handleNextClick = handleNextClick;
-    // config.handleItemDisplayChanged = handleItemDisplayChanged;
-    // config.handleSortingChanged = handleSortingChanged;
-
     useEffect(()=>{
-        async function FetchUser() {
-            var res = await GetUserList(1, pageinfo.pageSize, 0);
-            if(res.isSuccess)
-            {
-                setUsers(res.data.users);
-                setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageinfo.pageSize, pageinfo.sorting));
-                //setgotData(true);
-            }
-            else{
-                toast('Error: ' + res.data);
-            }
-            setIsLoading(false);
-        }
+        // async function FetchUser() {
+        //     var res = await GetUserList(1, pageInfo.pageSize, 0);
+        //     if(res.isSuccess)
+        //     {
+        //         setUsers(res.data.users);
+        //         setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageInfo.pageSize, pageInfo.sorting));
+        //     }
+        //     else{
+        //         toast('Error: ' + res.data);
+        //     }
+        //     setIsLoading(false);
+        // }
 
-        FetchUser();
-    }, [pageinfo.pageSize, pageinfo.sorting]);
+        queryData(1);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps    
+    }, []);
 
     return(
         <>
-            {config.isLoading && <Loader/>}        
             <div className="user-container">
                 {/* {users.length <= 0 && <button onClick={handleClick}>fetch users</button>} */}
 
