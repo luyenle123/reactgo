@@ -47,7 +47,7 @@ const Categoryblock = () => {
 export function CategoryItem(props){
     return(
         <div className="category-block-item"> 
-            <Link href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
+            <Link to={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
                 <div className='image-container'>
                     <LazyLoadImage
                         alt={props.category}

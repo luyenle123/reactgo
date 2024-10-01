@@ -36,38 +36,11 @@
       flex-wrap: wrap;
       /* justify-content: center; */
       align-items: center;
-      margin: 10px;
+      margin: 0px 10px 10px 0px;
       min-height: 100px;
       .no-product{
         color: #ffffff;
       }
-    }
-    
-    .load-more{
-      text-align: center;
-      margin: 20px 0px 10px 0px;
-      font-size: 14px;
-
-      .number{
-        font-weight: 600;
-      }
-
-      button{
-        min-width: 250px;
-        padding: 15px 20px;
-        border: 0px;
-        background-color: #dde6e7;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      button:hover{
-        background-color: #dfecee;
-      }
-
-      button:active{
-        background-color: #dde6e7;
-      }      
     }
   }
 }

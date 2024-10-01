@@ -8,12 +8,13 @@ const Counter = () => {
     //console.log('>> render Counter');
   
     useEffect(() => {
-        console.log('Calculation');
+        console.log('>> Count ' + count + ' change => useEffect ==> Calculation');
       setCalculation(() => count * 2);
     }, [count]); 
 
     const changeClick = (e) => {
-        setCount1((c) => c + 1);
+      console.log('>> no change Count');
+      setCount1((c) => c + 1);
     }
     
   

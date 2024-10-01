@@ -1,7 +1,11 @@
 .main-container
 {
-  margin-top: 40px;
+  margin-top: 0px; /* 40px;*/
   min-height: 700px;
+}
+
+.mt-40{
+  margin-top: 40px;
 }
 
 .main-container-login

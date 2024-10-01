@@ -16,7 +16,7 @@ export default function ProductCardItem(props){
         <div className={'product-card-container ' + cardcontainersizeclass}>
             <div className={'product-card ' + cardbodysizeclass}> 
                     <div className="product-img">
-                        <Link href={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
+                        <Link to={'/' + constants.NAV_PRODUCT_DETAIL + '?id=' + props.product.id}>
                             <LazyLoadImage className='product-image' alt={props.category} src={props.product.thumbnail}/>
                             {/* <img className='product-image' src={props.product.thumbnail} alt={props.product.title} loading='lazy'/> */}
                         </Link>

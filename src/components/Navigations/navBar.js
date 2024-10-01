@@ -34,11 +34,14 @@ export default function NavBar(isLogin){
                         <Link to={'/' + constants.NAV_CART_DETAIL}>Cart</Link>
                     </li>
                     <li>
-                        <Link to={'/' + constants.NAV_USER_LIST}>Users</Link>
+                        <Link to={'/' + constants.NAV_BLOG}>Blog</Link>
                     </li>
                     <li>
-                        <Link to={'/' + constants.NAV_BLOG}>Blog</Link>
-                    </li>                                        
+                        <Link to={'/' + constants.NAV_CONTACT_US}>Contact Us</Link>
+                    </li>
+                    <li>
+                        <Link to={'/' + constants.NAV_USER_LIST}>Users</Link>
+                    </li>                                         
                     <li>
                         <Link to={'/' + constants.NAV_OTHERS}>Others</Link>
                     </li>                    

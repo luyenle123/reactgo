@@ -1,0 +1,106 @@
+.contactus-container{
+    width: 100%;
+
+    .contactus-header{
+        text-align: center;
+        margin-top: 20px;
+        text-transform: uppercase;
+        font-size: 30px;
+    }
+
+    .contactus-body{
+        padding: 30px 0px 30px 0px;
+        width: 600px;
+        margin: 0 auto;
+    }
+}
+
+.contactus-form-control-flex
+{
+    width: 100%;
+    display: flex;
+}
+
+.contactus-form-control{
+    width: 100%;
+    margin: 10px 0px;
+    min-height: 30px;    
+
+    input{
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+        border: solid 1px #b4b4b46c;
+        border-radius: 5px;        
+    }
+
+    input:focus{
+        border-color: #4646466c;
+        outline: none;
+    }
+
+    textarea{
+        width: 100%;
+        height: 150px;
+        border-radius: 5px;
+        border: solid 1px #b4b4b46c;
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    textarea:focus{
+        border-color: #4646466c;
+        outline: none
+    }    
+
+    button{
+        padding: 10px 50px;
+        width: 300px;
+        margin: 0 auto;
+    }    
+
+    .contactus-form-control-buttons{
+        width: 100%;
+        text-align: center;
+        margin-top: 40px;
+
+        button{
+            padding: 12px 50px;
+            width: 250px;
+            margin: 0 auto;
+            background-color: #dddddd;
+            border: solid 1px #ccc;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        button:hover{
+            background-color: #e9e9e9;
+        }
+
+        button:active{
+            background-color: #dddddd;
+        }        
+    }
+
+    .contactus-form-control-checkbox{
+        display: flex;
+        
+        input{
+            width: 20px;
+            height: 20px;
+            margin: 0;
+        }
+        span{
+            margin-left: 10px;
+            margin-top: 2px;
+        }
+    }
+}
+
+.p-left-5{
+    padding-left: 5px;
+}
+.p-right-5{
+    padding-right: 5px;
+}

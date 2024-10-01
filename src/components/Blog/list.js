@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { GetPageInfo } from '../Pagination/paginationUtils';
 import { LoaderToggle } from '../Loader/loader';
 import PostItem from './blogItem';
-import PostItemEmpty from './blogItemEmpty';
 
 export default function BlogList() {
     const [posts, setPosts] = useState(undefined);
@@ -47,11 +46,7 @@ export default function BlogList() {
         }
         setIsLoading(false);
         LoaderToggle(false);
-    }    
-  
-    // if(!posts){
-    //     return(<>Fetch Blog ...</>);
-    // }
+    }
 
     const PageChanged = (page, pageSize) => {
         if(page !== pageInfo.page){
@@ -65,7 +60,6 @@ export default function BlogList() {
             queryData(1);
             return;
         }
-
     };    
 
     const gotData = posts && posts.length > 0;
@@ -102,15 +96,11 @@ export default function BlogList() {
                 <div className="blog-list">
                     {!posts ? 
                     <>
-                        {emptyPosts.map((post, i) => (
-                            <PostItemEmpty key={i} post={post}/>
-                        ))}                    
+                        {emptyPosts.map((post, i) => (<PostItem key={i} post={post} isEmpty={true}/> ))}
                     </> 
                     : 
                     <>
-                        {posts.map((post, i) => (
-                            <PostItem key={i} post={post}/>
-                        ))}                    
+                        {posts.map((post, i) => (<PostItem key={i} post={post}/> ))}
                     </>}
                 </div>
             </div>                 

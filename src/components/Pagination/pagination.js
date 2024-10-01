@@ -1,7 +1,7 @@
 import '../../styles/pagination.css';
 
 const handleAddToCartClick = (e) => {};
-const handleLoadMoreClick = (e) => {};
+//const handleLoadMoreClick = (e) => {};
 const handleItemDisplayChanged = (e) => {};
 const PageChanged = (page, paggeSize) => {}  
 
@@ -14,9 +14,10 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
         hidePageOption: false,
+        loadMoreOnly: false,
 
         handleAddToCartClick:handleAddToCartClick,
-        handleLoadMoreClick:handleLoadMoreClick,
+        //handleLoadMoreClick:handleLoadMoreClick,
 
         handleItemDisplayChanged: handleItemDisplayChanged,
         PageChanged: PageChanged
@@ -26,6 +27,7 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
 export const CloneConfig = (config) => {
     return {
         isLoading: config.isLoading,
+        loadMoreOnly: config.loadMoreOnly,
         pageInfo: config.pageInfo,
         hasData: config.hasData,
         hideSortOption: config.hideSortOption,
@@ -34,7 +36,7 @@ export const CloneConfig = (config) => {
         hidePageOption: config.hidePageOption,
 
         handleAddToCartClick:config.handleAddToCartClick,
-        handleLoadMoreClick: config.handleLoadMoreClick,
+        //handleLoadMoreClick:config.handleLoadMoreClick,
 
         PageChanged: config.PageChanged,
     } 
@@ -79,10 +81,27 @@ export const Pagination = ({config}) => {
         {
             config.PageChanged(config.pageInfo.page, newPageSize);
         }        
-    };  
+    };
+    
+    const loadMoreClick = () => {
+        var page = config.pageInfo.page + 1;
+        if(page > config.pageInfo.totalPage){ return; }
+
+        if(config.PageChanged)
+        {
+            config.PageChanged(page, config.pageInfo.pageSize);
+        }       
+        // alert('next page : ' + page);
+    }
 
     if(config === undefined){
         config = GetConfig(false, false, {});       
+    }
+
+    if(config.loadMoreOnly){
+        return(
+            <LoadMoreButton config={config} loadMoreClick={loadMoreClick}/>
+        );
     }
 
     return(
@@ -108,6 +127,14 @@ export const Pagination = ({config}) => {
         </div>
     );
 };
+
+export function LoadMoreButton(props){
+    return(
+        <div className='load-more'>
+            <button onClick={props.loadMoreClick}>Load More (<span className='number'>{props.config.pageInfo.remainingCount}</span> items)</button>
+        </div>        
+    );
+}
 
 export function DisplayPageInfo ({config}) {
     if(config === undefined){ return;}

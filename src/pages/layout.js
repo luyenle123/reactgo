@@ -26,9 +26,11 @@ const Layout = () => {
   return (
     <>
         {isLogin && <>{navBar}</>}
+        
+        {isLogin && <div className='mt-40'><Bannerfull/></div> }
+        
         <div className={mainContainerClass}>
-            <Loader isActive={false}/>
-            {isLogin && <Bannerfull/> }
+            <Loader isActive={false}/>            
             <Outlet />
         </div>
         <Footer/>

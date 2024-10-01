@@ -5,9 +5,10 @@ import React, { Suspense } from 'react';
 const Products = React.lazy(() => import('../components/Product/products.js'));
 
 const ProductList = () => {
+  //fallback = {<p>Loading...</p>}
   return (
     <>
-      <Suspense fallback = {<p>Loading...</p>}>
+      <Suspense>
         <Products/>
       </Suspense>
     </>

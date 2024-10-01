@@ -19,3 +19,4 @@ export const NAV_LOGIN = "login";
 export const NAV_LOGOUT = "logout";
 export const NAV_SEARCH = "search";
 export const NAV_BLOG = "blog";
+export const NAV_CONTACT_US = "contactus";

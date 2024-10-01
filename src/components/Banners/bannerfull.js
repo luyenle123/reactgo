@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import '../../styles/bannerfull.css';
 
-export default function Bannerfull(){
+const Bannerfull = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const bannerImages = [
@@ -51,3 +51,5 @@ export default function Bannerfull(){
     </div>
   )
 }
+
+export default memo(Bannerfull)

@@ -10,6 +10,7 @@ import Car from '../components/DEMO/RClass/car.js';
 import Container from '../components/DEMO/RClass/container .js';
 import Gallery from '../components/DEMO/State/Gallery.js';
 import TaskApp from '../components/DEMO/Task/TaskApp.js';
+import Component1 from '../components/DEMO/UContext/Component1.js';
 // import { Parent } from '../components/DEMO/UC/parent.js';
 // import ProductList from '../components/DEMO/UC/productList.js';
 // import { Garage } from '../components/DEMO/UC/proptest.js';
@@ -62,9 +63,15 @@ const OtherPage = () => {
         </div>
         
         <div className='group'>
-          <h1>Form</h1>
+          <h1 style={{color:"red"}}>Form</h1>
 
           <MyForm/>
+        </div>
+        
+        <div className='group'>
+          <h1>Use Context</h1>
+
+          <Component1/>
         </div>          
 
         {/* <div className='group'>

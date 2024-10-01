@@ -1,9 +1,12 @@
 import {} from '../../styles/productdetail.css';
 
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetProductDetail } from '../../services/productService.js';
 import { Loader } from "../Loader/loader.js";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+const ProductContext = createContext();
 
 export default function ProductDetail(){
     const [isLoading, setIsLoading] = useState(false);
@@ -36,47 +39,129 @@ export default function ProductDetail(){
             {isLoading && <Loader/>}
 
             <div className="pdp-container">
-            <div className={'pdp-block pdp-header'}>
-                <div className="pdp-header-image">
-                    {product.images && <img src={product.images[0]} alt={product.title} /> }
-                </div>                
-                <p className='pdp-header-title'>{product.title}</p>
-                <p className='pdp-header-sku'>{product.sku}</p>
-                <p className='pdp-header-category'>{product.category}</p>
-                <p className='pdp-header-brand'>{product.brand}</p>
-                <p className='pdp-header-description'>{product.description}</p>
-            </div>
 
-            <div className={'pdp-block pdp-spec'}>
-                <p>{product.warrantyInformation}</p>
-                <p>{product.shippingInformation}</p>
-                <p>{product.availabilityStatus}</p>
-                <p>{product.returnPolicy}</p>
-            </div>
-            
-            <div className={'pdp-block pdp-gallery'}>
-                <p>Gallery</p>
-            </div>             
-
-            <div className={'pdp-block pdp-review'}>
-                <BuildReview reviews={product.reviews}/>
-            </div>
-        </div>            
+                <ProductContext.Provider value={product}>
+                    <PDPHeader/>
+                    <PdpSpectTab/>
+                </ProductContext.Provider>
+            </div>            
         </>
     );
 }
 
-export function BuildReview({reviews}){
-    if(!reviews){
+export function PDPHeader(){
+    const product = useContext(ProductContext);
+
+  return (
+    <>
+        <div className={'pdp-block pdp-header'}>
+            <div className="pdp-header-image">
+                {product.images && <img src={product.images[0]} alt={product.title} /> }
+            </div>                
+            <p className='pdp-header-title'>{product.title}</p>
+            <p className='pdp-header-sku'>{product.sku}</p>
+            <p className='pdp-header-category'>{product.category}</p>
+            <p className='pdp-header-brand'>{product.brand}</p>
+            <p className='pdp-header-description'>{product.description}</p>
+        </div>    
+    </>
+  )
+}
+
+export function PdpSpectTab(){
+    const [tabId, setTabId] = useState(1);
+
+    const tabChanged = (id) => {
+        setTabId(id);
+    }
+
+    var actvie1 = tabId === 1 ? ' active': '';
+    var actvie2 = tabId === 2 ? ' active': '';
+    var actvie3 = tabId === 3 ? ' active': '';
+
+    return(
+    <>
+        <div className='pdp-tab-wrapper'>
+            <div className='pdp-tab-header'>
+                <div className={'pdp-tab-header-item ' + actvie1} onClick={() => tabChanged(1)}>Spec</div>
+                <div className={'pdp-tab-header-item ' + actvie2} onClick={() => tabChanged(2)}>Gallary</div>
+                <div className={'pdp-tab-header-item ' + actvie3} onClick={() => tabChanged(3)}>Review</div>
+            </div>
+
+            <div className='pdp-tab-body'>
+                {tabId === 1 && <Spec/>}
+                {tabId === 2 && <Gallery/>}
+                {tabId === 3 && <Review/>}
+            </div>
+
+        </div>
+    </>);
+}
+
+export function Spec(){
+    const product = useContext(ProductContext);    
+    return(
+        <>
+            <div className={'pdp-spec'}>
+                <p>{product.warrantyInformation}</p>
+                <p>{product.shippingInformation}</p>
+                <p>{product.availabilityStatus}</p>
+                <p>{product.returnPolicy}</p>
+                <p>{product.rating}</p>
+                <p>{product.discountPercentage}</p>
+                <p>{product.minimumOrderQuantity}</p>
+
+                {product.dimensions && 
+                <div className='pdp-spec-dimension'>
+                    <div className='pdp-spec-dimension-title'>Dimensions</div>
+                    <div className='pdp-spec-dimension-detail'>
+                        <div>width: {product.dimensions.width}</div>
+                        <div>height: {product.dimensions.height}</div>
+                        <div>depth: {product.dimensions.depth}</div>
+                    </div>
+                </div>}
+
+            </div>        
+        </>
+    );
+}
+
+export function Gallery(){
+    const product = useContext(ProductContext);    
+    return(
+        <>
+            <div className={'pdp-gallery'}>
+                {product.images.map((img, i) => 
+                <>
+                    <LazyLoadImage className='product-image' alt='gallery image' src={img} key={i} width={300} height={300}/>
+                </> )}
+            </div>        
+        </>
+    );
+}
+
+export function Review(){
+    const product = useContext(ProductContext);    
+    return(
+        <>
+            <div className={'pdp-review'}>
+                <BuildReview reviews={product.reviews}/>
+            </div>        
+        </>
+    );
+}
+
+export function BuildReview(){
+    const product = useContext(ProductContext);
+
+    if(!product || !product.reviews){
         return(
             <></>
         );
     }
     return(
         <>
-            {reviews.map((r) => {
-                return <ReviewItem key={r.reviewerEmail} data={r}/>
-            })}        
+            {product.reviews.map((r) => { return <ReviewItem key={r.reviewerEmail} data={r}/> })}
         </>
     );
 }

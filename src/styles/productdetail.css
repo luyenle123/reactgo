@@ -55,6 +55,18 @@
 
 .pdp-spec{
     padding: 10px;
+
+    .pdp-spec-dimension{
+        margin-top: 20px;
+
+        .pdp-spec-dimension-title{
+            font-weight: 600;
+        }
+
+        .pdp-spec-dimension-detail{
+            padding-left: 10px;
+        }
+    }
 }
 
 .pdp-gallery{
@@ -69,4 +81,31 @@
         border-bottom: solid 1px #ececec;
         margin-bottom: 5px;
     }    
+}
+
+.pdp-tab-wrapper{
+    width: 100%;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+
+    .pdp-tab-header{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: solid 1px #ccc;
+
+        .pdp-tab-header-item{
+            padding: 10px 30px;
+            background-color: #e6e6e6;
+            cursor: pointer;
+        }
+
+        .active{
+            background-color: #ccc;
+        }
+    }
+
+    .pdp-tab-body{
+        min-height: 300px;
+    }
 }

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { DoAddToCart,UpdateCartInfo } from "../Cart/cart.js";
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { LoaderToggle } from "../Loader/loader.js";
-import { GetConfig } from '../Pagination/pagination.js'
+import { GetConfig, Pagination } from '../Pagination/pagination.js'
 import { GetProductList,GetCategoryProduct } from '../../services/productService.js';
 import { useSearchParams } from "react-router-dom";
 import { Category, UpdateCategoryProductCount } from './category.js';
@@ -109,14 +109,6 @@ export default function Products(){
         });     
     };
 
-    const handleLoadMoreClick = (e) => {
-        // Load more product
-        var page = config.pageInfo.page + 1;
-        if(page > config.pageInfo.totalPage){ return; }
-
-        LoadMoreProduct(categorySelected, page);
-    }; 
-
     let catetory = categorySelected;
     if(!catetory && cat)
         catetory = cat;
@@ -147,16 +139,21 @@ export default function Products(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); 
 
-    // if(!products){
-    //     return(<><div className='empty-container'></div></>);
-    // }
+    const PageChanged = (page, pageSize) => {
+        if(page !== pageInfo.page){
+            pageInfo.pageSize = pageSize;
+            LoadMoreProduct(categorySelected, page);
+            return;
+        }
+    };     
 
     const gotData = products ? true : false;
     const config = GetConfig(false, gotData, pageInfo);
     config.handleAddToCartClick = handleAddToCartClick;
-    config.handleLoadMoreClick = handleLoadMoreClick;
+    config.PageChanged = PageChanged;
     config.handleSortingChanged = handleSortingChanged;
     config.hideSortOption = false;
+    config.loadMoreOnly = true;
 
     const FetCategoryProduct = async (category, page) => {
         LoaderToggle(true);
@@ -209,22 +206,8 @@ export default function Products(){
 }
 
 export function ProductList(props) {
-    // if(props.products.length <= 0)
-    // {
-    //     return(
-    //         <div className="product-list-container">
-    //             { 
-    //                 <div className="product-flex">
-    //                     <div className="no-product">No Product</div>
-    //                 </div>
-    //             }
-    //         </div>
-    //     );
-    // }
-
   return (        
         <div className="product-list-container">
-            {/* {props.products && props.products.length > 0 && <Pagination config={props.config}/>} */}
             <div className="product-flex">
                 {props.products && props.products.length > 0 ? 
                 <>
@@ -240,9 +223,9 @@ export function ProductList(props) {
             </div>
 
             {props.config.pageInfo.allowLoadMore && 
-                <div className='load-more'>
-                    <button onClick={props.config.handleLoadMoreClick}>Load More (<span className='number'>{props.config.pageInfo.remainingCount}</span> items)</button>
-                </div>
+                <>
+                    {props.products && props.products.length > 0 && <Pagination config={props.config}/>}                
+                </>
             }
         </div>    
   )

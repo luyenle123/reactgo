@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchPage from './pages/search.js';
 import BlogPage from './pages/blog.js';
+import ContactUsPage from './pages/contactus.js';
 
 export default function App() {
   //console.log('App');
@@ -35,6 +36,7 @@ export default function App() {
             <Route path={constants.NAV_OTHERS} element={<OtherPage />} />
             <Route path={constants.NAV_SEARCH} element={<SearchPage/>} />
             <Route path={constants.NAV_BLOG} element={<BlogPage/>} />
+            <Route path={constants.NAV_CONTACT_US} element={<ContactUsPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>
