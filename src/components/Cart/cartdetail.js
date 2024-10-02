@@ -93,13 +93,15 @@ export default function CartPageDetail(){
                 Cart Detail
             </div>
 
-            <div className="cart-products">
-                {cart.products.map((p) => {
-                    return <ProductItem key = {p.id} product = {p} eventhandle={data}/>
-                })}
-            </div>
+            <div className='cart-detail-body'>
+                <div className="cart-products">
+                    {cart.products.map((p) => {
+                        return <ProductItem key = {p.id} product = {p} eventhandle={data}/>
+                    })}
+                </div>
 
-            {hasData && <CartSummary cart={cart} eventhandle={data}/> }
+                {hasData && <CartSummary cart={cart} eventhandle={data}/> }
+            </div>
         </div>
     </>
   )
@@ -134,26 +136,6 @@ export function CartSummary(props){
                         <p>Shipping: FREE</p>
                     </div>
 
-                    <div className='cart-detail-address'>
-                        <div className='cart-detail-billing-address'>
-                            <div className='address-header'>Billing Address</div>
-                            <span>Mr  Emily Johnson</span><br/>
-                            <span>626 Main Street</span><br/>
-                            <span>Wembley WA 6014</span><br/>
-                            <span>emily.johnson@x.dummyjson.com</span><br/>
-                            <span>+81 965-431-3024</span>
-                        </div>
-
-                        <div className='cart-detail-shipping-address'>
-                            <div className='address-header'>Shipping Address</div>
-                            <span>Mr  Emily Johnson</span><br/>
-                            <span>626 Main Street</span><br/>
-                            <span>Wembley WA 6014</span><br/>
-                            <span>emily.johnson@x.dummyjson.com</span><br/>
-                            <span>+81 965-431-3024</span>
-                        </div>
-                    </div>
-
                     <div className='cart-summary-buttons'>
                         <button className='checkout-button' onClick={props.eventhandle.handleGoToCheckoutClick}>Go to Checkout</button>
                     </div>
@@ -169,13 +151,41 @@ export function ProductItem(props){
             <div className="cart-detail-item-img">
                 <img src={props.product.thumbnail} alt={props.product.title} />  
             </div>
-            <div className='cart-detail-item-productdetail'>
-                <div className="cart-detail-item-title">
+            <div className='cart-detail-item-data'>
+                {/* <div className="cart-detail-item-title">
                     <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id='+props.product.id}>
                         {props.product.title}
                     </a>
+                </div> */}
+
+                <div className='cart-detail-item-info'>
+                    <div className="cart-detail-item-id">{props.product.id}</div>
+                    <div className='cart-detail-item-title'>
+                        <a href={'/' + constants.NAV_PRODUCT_DETAIL + '?id='+props.product.id}>
+                            {props.product.title}
+                        </a>
+                    </div>
+                    <div className='cart-detail-item-description'>
+                        {props.product.title}
+                    </div>
+
+                    <div className="cart-detail-item-price">{props.product.price} $</div>
                 </div>
-                <div className="cart-detail-item-quantity">
+
+                <div className='cart-detail-item-amount'>
+                    <div className="cart-detail-item-quantity float-right">
+                            <button className='quantity-adjust-button' onClick={props.eventhandle.handleQuantityDownClick}>-</button>
+                            <div className='txt-quantity'>{props.product.quantity}</div>
+                            <button className='quantity-adjust-button' onClick={props.eventhandle.handleQuantityUpClick}>+</button>
+                        </div>                    
+                    <div className="cart-detail-item-total">{props.product.total.toFixed(2)} $</div>
+
+                <div className="cart-detail-item-remove">
+                    <button className='cart-detail-item-remove-button' onClick={props.eventhandle.handleRemoveCartItemClick} title='Delete' value={props.product.id}>X</button>
+                </div>                    
+                </div>                
+
+                {/* <div className="cart-detail-item-quantity">
                     <button className='quantity-adjust-button' onClick={props.eventhandle.handleQuantityDownClick}>-</button>
                     <div className='txt-quantity'>{props.product.quantity}</div>
                     <button className='quantity-adjust-button' onClick={props.eventhandle.handleQuantityUpClick}>+</button>
@@ -184,7 +194,7 @@ export function ProductItem(props){
                 <div className="cart-detail-item-total">{props.product.total.toFixed(2)} $</div>
                 <div className="cart-detail-item-remove">
                     <button className='cart-detail-item-remove-button' onClick={props.eventhandle.handleRemoveCartItemClick} title='Delete' value={props.product.id}>X</button>
-                </div>
+                </div> */}
             </div>
         </div>
     );
