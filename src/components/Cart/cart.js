@@ -3,7 +3,7 @@ import cartIcon from '../../images/cart.png';
 
 import { useEffect, useState } from 'react'
 import {  toast } from 'react-toastify';
-import { GetCartDetail, AddToCart } from '../../services/cartService.js';
+import { GetCartDetail, AddToCart } from '../../services/cartAPI.js';
 import { LoaderToggle } from "../Loader/loader.js";
 import * as constants from '../../constants/constant.js'
 import { useNavigate } from 'react-router-dom';

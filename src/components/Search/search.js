@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { SearchProduct } from '../../services/productService.js';
+import { SearchProduct } from '../../services/productAPI.js';
 import { toast } from 'react-toastify';
 import { LoaderToggle } from "../Loader/loader.js";
 import { DoAddToCart,UpdateCartInfo } from "../Cart/cart.js";

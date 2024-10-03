@@ -1,38 +1,25 @@
 import React, { useState } from 'react'
-import { GetPostComments } from '../../services/blogService';
+import { GetPostCommentUrl } from '../../services/blogAPI';
 import { GetPageInfo } from '../Pagination/paginationUtils';
-import { toast } from 'react-toastify';
-import { LoaderToggle } from '../Loader/loader';
 import CommentList from './commentList';
+import { useFetchData } from '../../services/useFetchData';
 
 export default function PostItem(props){
     const [showComment, setShowComment] = useState(false);
-    const [comments, setComments] = useState([]);
-    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
-    const [isLoading, setIsLoading] = useState(false);
-
+    const pageData = {page:1, size: 12, sorting: 1};
     const emptyComments = [{},{}];
 
-    const getComment = async(postId) => {
-        LoaderToggle(true);
-        setIsLoading(true);
-        var res = await GetPostComments(postId);
-        if(res.isSuccess){
-            setComments(res.data.comments);
-            setPageInfo(GetPageInfo(res.data.total, res.data.comments.length, 1, pageInfo.pageSize, pageInfo.sorting));
-        }
-        else{
-            toast('Error: ' + res.data);
-        }
-        setIsLoading(false);
-        LoaderToggle(false);
-    }
+    const postId = showComment ? props.post.id: 0;
+    const [data, isLoading, error] = useFetchData(GetPostCommentUrl(postId));
+    const comments = data?.comments;
+    const pageInfo = data ? GetPageInfo(data.total, comments?.length, pageData.page, pageData.size, pageData.sorting) : {total: 0, pageSize:12, sorting:1};
+
+    if(error){
+        console.log(error);
+    }    
     
     const handleShowCommentClick = async(postId) => {
         setShowComment(!showComment);
-        if(!showComment){
-            await getComment(postId);
-        }
     }
 
     const activecl = showComment ? 'active' : '';

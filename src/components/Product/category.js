@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetCategoryList } from '../../services/productService.js';
+import { GetCategoryList } from '../../services/productAPI.js';
 
 import '../../styles/category.css';
 import { toast } from 'react-toastify';

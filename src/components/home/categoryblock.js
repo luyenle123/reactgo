@@ -1,7 +1,7 @@
 import * as constants from '../../constants/constant';
 import '../../styles/categoryblock.css';
 import React, { memo, useEffect, useState } from 'react'
-import { GetCategoryList } from '../../services/productService.js';
+import { GetCategoryList } from '../../services/productAPI.js';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 
@@ -48,12 +48,12 @@ export function CategoryItem(props){
     return(
         <div className="category-block-item"> 
             <Link to={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
-                <div className='image-container'>
+                <div className='image-container opacity-50'>
                     <LazyLoadImage
                         alt={props.category}
-                        height={120}
+                        height={110}
                         src={'../images/categories/b/' + props.id +'.svg'}
-                        width={120}/>
+                        width={110}/>
                     {/* <img src={'../images/categories/b/' + props.id +'.svg'} width={150} height={150} alt={props.category}/> */}
                 </div>
                 

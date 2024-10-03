@@ -1,0 +1,1 @@
+export const FETCH_CACHE_IN_SECOND = 300; // min

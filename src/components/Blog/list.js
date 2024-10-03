@@ -1,65 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { GetPostList } from '../../services/blogService';
+import React, { useState } from 'react'
 
 import '../../styles/blog.css';
 import { GetConfig, Pagination } from '../Pagination/pagination';
-import { toast } from 'react-toastify';
 import { GetPageInfo } from '../Pagination/paginationUtils';
-import { LoaderToggle } from '../Loader/loader';
+import { Loader } from '../Loader/loader';
 import PostItem from './blogItem';
+import { useFetchData } from '../../services/useFetchData';
+import { GetPostListUrl } from '../../services/blogAPI';
 
 export default function BlogList() {
-    const [posts, setPosts] = useState(undefined);
-    const [isLoading, setIsLoading] = useState(false);
-    const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
-
+    const [pageData, setPageData] = useState({page:1, size: 12, sorting: 1});
     const emptyPosts = [{},{},{},{},{},{},{},{},{},{},{},{}];
 
-    useEffect(() => {
-        async function fetchPosts() {                
-            const res = await GetPostList(1, pageInfo.pageSize, pageInfo.sorting);
-  
-            setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageInfo.pageSize, pageInfo.sorting));            
-            setIsLoading(false);
-            LoaderToggle(false);
-        }
-  
-        setIsLoading(true);
-        LoaderToggle(true);
-        fetchPosts();
+    const url = GetPostListUrl(pageData.page, pageData.size, pageData.sorting);
+    const [data, isLoading, error] = useFetchData(url);
+    const posts = data?.posts;
+    const pageInfo = data ? GetPageInfo(data.total, data.posts.length, pageData.page, pageData.size, pageData.sorting) : {total: 0, pageSize:12, sorting:1};
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const queryData = async (page) => {
-        LoaderToggle(true);
-        setIsLoading(true);
-        var res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting);
-        if(res.isSuccess)
-        {
-            setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageInfo.pageSize, pageInfo.sorting));
-        }
-        else{
-            toast('Error: ' + res.data);
-        }
-        setIsLoading(false);
-        LoaderToggle(false);
+    if(error){
+        console.log(error);
     }
 
     const PageChanged = (page, pageSize) => {
-        if(page !== pageInfo.page){
-            pageInfo.pageSize = pageSize;
-            queryData(page);
-            return;
-        }
-
-        if(pageSize !== pageInfo.pageSize){
-            pageInfo.pageSize = pageSize;
-            queryData(1);
-            return;
-        }
+        setPageData({page: page, size: pageSize});
     };    
 
     const gotData = posts && posts.length > 0;
@@ -81,6 +44,8 @@ export default function BlogList() {
             <div className='blog-header'>
                 Blog
             </div>
+
+            {isLoading && <Loader isActive={true}/>}
           
             <div className='blog-list-wrapper'>
                 {!posts ? 
@@ -100,7 +65,7 @@ export default function BlogList() {
                     </> 
                     : 
                     <>
-                        {posts.map((post, i) => (<PostItem key={i} post={post}/> ))}
+                        {posts?.map((post, i) => (<PostItem key={i} post={post}/> ))}
                     </>}
                 </div>
             </div>                 

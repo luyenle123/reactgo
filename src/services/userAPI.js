@@ -1,5 +1,5 @@
 import * as constants from '../constants/constant.js'
-import { FetchData, PostData } from '../services/queryServiceBase.js';
+import { FetchData, PostData } from './queryServiceBase.js';
 
 const GetUserList = async (page, pageSize) => {
     try {

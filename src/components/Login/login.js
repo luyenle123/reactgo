@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Loader } from "../Loader/loader.js";
 import { useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {GetGoogleUerInfo, LoginAPI} from '../../services/userService.js';
+import {GetGoogleUerInfo, LoginAPI} from '../../services/userAPI.js';
 import * as constants from '../../constants/constant.js'
 import { useGoogleLogin  } from '@react-oauth/google';
 // import { jwtDecode } from "jwt-decode";

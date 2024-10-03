@@ -6,7 +6,7 @@ import { DoAddToCart,UpdateCartInfo } from "../Cart/cart.js";
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { LoaderToggle } from "../Loader/loader.js";
 import { GetConfig, Pagination } from '../Pagination/pagination.js'
-import { GetProductList,GetCategoryProduct } from '../../services/productService.js';
+import { GetProductList,GetCategoryProduct } from '../../services/productAPI.js';
 import { useSearchParams } from "react-router-dom";
 import { Category, UpdateCategoryProductCount } from './category.js';
 import ProductCardItem from './productCard.js';

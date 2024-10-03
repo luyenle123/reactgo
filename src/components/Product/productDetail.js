@@ -2,7 +2,7 @@ import {} from '../../styles/productdetail.css';
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { GetProductDetail } from '../../services/productService.js';
+import { GetProductDetail } from '../../services/productAPI.js';
 import { Loader } from "../Loader/loader.js";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 

@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useMemo } from 'react';
 import * as constants from '../constants/constant.js'
 import { Loader } from '../components/Loader/loader.js';
-import { IsLogin } from '../services/userService.js';
+import { IsLogin } from '../services/userAPI.js';
 import Footer from '../components/Footer/footer.js';
 import Bannerfull from '../components/Banners/bannerfull.js';
 import NavBar from '../components/Navigations/navBar.js';

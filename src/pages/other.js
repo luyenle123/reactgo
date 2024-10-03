@@ -32,6 +32,8 @@ const OtherPage = () => {
         </div> 
 
         <div className='group'>
+          <h1>Arr State</h1>
+
           <ArrState/>    
         </div> 
 

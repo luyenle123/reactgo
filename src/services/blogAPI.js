@@ -1,5 +1,5 @@
 import * as constants from '../constants/constant.js'
-import { FetchData } from '../services/queryServiceBase.js';
+import { FetchData } from './queryServiceBase.js';
 
 const BuildSortParam = (type) => {
     switch(type){
@@ -10,19 +10,27 @@ const BuildSortParam = (type) => {
         default:
             return 'sortBy=title&order=asc';
     }
-  }
+}
 
-const GetPostList = async (page, pageSize, sorting) => {
+const GetPostListUrl = (page, pageSize, sorting) => {
     var skip = (page - 1) * pageSize;
     var sort = BuildSortParam(sorting);
     var pagging = '&limit='+ pageSize + '&skip=' + skip;
     var url = constants.POST_URL + '?' + sort + pagging; 
-    return FetchData(url); 
+    return url;
+}
+
+const GetPostCommentUrl = (postId) => {
+    var url = constants.POST_URL + '/' + postId + '/comments'; 
+    return url;
+}
+
+const GetPostList = async (page, pageSize, sorting) => {
+    return FetchData(GetPostListUrl(page, pageSize, sorting)); 
 }
 
 const GetPostComments = async (postId) => {
-    var url = constants.POST_URL + '/' + postId + '/comments'; 
-    return FetchData(url); 
+    return FetchData(GetPostCommentUrl(postId)); 
 }
 
 const GetPostDetail = async (postId) => {
@@ -31,4 +39,4 @@ const GetPostDetail = async (postId) => {
 }
 
 
-export { GetPostList, GetPostComments, GetPostDetail };
+export { GetPostList, GetPostComments, GetPostDetail, GetPostListUrl, GetPostCommentUrl };
