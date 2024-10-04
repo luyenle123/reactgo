@@ -43,6 +43,13 @@
         /* border: solid 1px #f3f3f3;
         border-radius: 5px; */
         float: left;
+
+        .empty-img{
+          padding: 30px;
+          width: 110px;
+          height: 110px;
+          background-color: #cccccc93;
+        }
       }
       
       .cart-detail-item-img >img{

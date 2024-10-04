@@ -8,7 +8,7 @@ import Footer from '../components/Footer/footer.js';
 import Bannerfull from '../components/Banners/bannerfull.js';
 import NavBar from '../components/Navigations/navBar.js';
 
-const Layout = () => {
+const MainLayout = () => {
     const navigate = useNavigate();
     var isLogin = IsLogin();
     const navBar = useMemo(() => NavBar(isLogin), [isLogin]);
@@ -38,4 +38,4 @@ const Layout = () => {
   )
 };
 
-export default Layout;
+export default MainLayout;

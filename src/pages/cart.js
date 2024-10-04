@@ -8,7 +8,8 @@ const CartPageDetail = React.lazy(() => import('../components/Cart/cartdetail'))
 const CartPage = () => {
     return (
         <>
-          <Suspense fallback = {<p>Loading...</p>}>
+        {/* fallback = {<p>Loading...</p>} */}
+          <Suspense>
             <CartPageDetail/>
           </Suspense>
         </>
