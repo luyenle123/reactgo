@@ -1,0 +1,17 @@
+.block4c-container
+{
+    width: 100%;
+    display: flex;
+
+    .block4c-item-wrapper{
+        width: 25%;
+        padding: 8px;
+
+        .block4c-body{
+            .block4c-image{
+                width: 100%;
+                height: 300px;
+            }
+        }
+    }
+}

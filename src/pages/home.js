@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import * as constants from '../constants/constant';
 import SearchBox from '../components/Search/searchBox';
 import '../styles/home.css';
-import Categoryblock from '../components/home/categoryblock';
+import Categoryblock from '../components/blocks/categoryblock';
+import Twocolumnblock from '../components/blocks/twocolumnblock';
+import Threecolumnblock from '../components/blocks/threecolumnblock';
+import Fourcolumnblock from '../components/blocks/fourcolumnblock';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,9 +25,18 @@ const Home = () => {
           <Categoryblock/>
         </div>
 
-         {/* <div className='gogo'>
-            <p>GO GO TEST</p>
-          </div> */}
+        <div className='block-wrapper'>
+          <Twocolumnblock/>
+        </div>
+
+        <div className='block-wrapper'>
+          <Threecolumnblock/>
+        </div>
+
+        <div className='block-wrapper'>
+          <Fourcolumnblock/>
+        </div>        
+
         </div>
       </div>
     );

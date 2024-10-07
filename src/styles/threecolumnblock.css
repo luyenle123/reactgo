@@ -1,0 +1,19 @@
+.block3c-container
+{
+    width: 100%;
+    display: flex;    
+
+    .block3c-item-wrapper{
+        width: 33.3333333%;
+        padding: 8px;
+
+        .block3c-body{
+            width: 100%;
+
+            .block3c-image{
+                width: 100%;
+                height: 400px;
+            }
+        }
+    }
+}
