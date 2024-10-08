@@ -6,7 +6,7 @@ import '../styles/home.css';
 import Categoryblock from '../components/blocks/categoryblock';
 import Twocolumnblock from '../components/blocks/twocolumnblock';
 import Threecolumnblock from '../components/blocks/threecolumnblock';
-import Fourcolumnblock from '../components/blocks/fourcolumnblock';
+// import Fourcolumnblock from '../components/blocks/fourcolumnblock';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -33,9 +33,9 @@ const Home = () => {
           <Threecolumnblock/>
         </div>
 
-        <div className='block-wrapper'>
+        {/* <div className='block-wrapper'>
           <Fourcolumnblock/>
-        </div>        
+        </div>         */}
 
         </div>
       </div>

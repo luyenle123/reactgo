@@ -16,7 +16,6 @@
     .category-list-container{
         display: flex;
         flex-wrap: wrap;
-        /* overflow-x: hidden; */
         padding: 20px 100px;
         justify-content: center;
 
@@ -31,7 +30,7 @@
                 text-align: center;
                 min-height: 120px;
                 img{
-                    opacity: 0.5;
+                    opacity: 0.8;
                 }
                 .empty-image{
                     width: 120px;
@@ -43,7 +42,6 @@
             .display-text{
                 font-size: 16px;
                 text-align: center;
-                font-weight: 600;
             }
         }
     }

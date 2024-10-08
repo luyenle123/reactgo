@@ -13,7 +13,7 @@ export default function ProductCardItemEmpty(props){
         <div className={'product-card-container emp empty-item ' + cardcontainersizeclass}>
             <div className={'product-card ' + cardbodysizeclass}> 
                     <div className="product-img">
-
+                        <div className='img-empty'></div>
                     </div>
 
                     <p className="product-title">product title</p>

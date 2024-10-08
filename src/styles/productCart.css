@@ -32,6 +32,13 @@
         height: 200px;
         position: relative;
         border-radius: 5px;
+
+        .img-empty{
+          background-color: #ccc;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
+        }
   
         img{
           position: absolute;

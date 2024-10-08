@@ -29,7 +29,6 @@ const Categoryblock = () => {
                 Browse a category
                 <hr/>
             </div>
-            {/* .slice(0, 8) */}
             <div className='category-list-container'>
                 {cateories && cateories.length > 0 ? 
                 <>
@@ -48,13 +47,12 @@ export function CategoryItem(props){
     return(
         <div className="category-block-item"> 
             <Link to={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
-                <div className='image-container opacity-50'>
+                <div className='image-container'>
                     <LazyLoadImage
                         alt={props.category}
                         height={110}
-                        src={'../images/categories/b/' + props.id +'.svg'}
+                        src={'../images/categories/c/' + props.id +'.svg'}
                         width={110}/>
-                    {/* <img src={'../images/categories/b/' + props.id +'.svg'} width={150} height={150} alt={props.category}/> */}
                 </div>
                 
                 <div className='display-text'>

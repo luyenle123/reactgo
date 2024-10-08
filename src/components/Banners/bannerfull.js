@@ -1,11 +1,12 @@
 import React, { memo, useEffect, useState } from 'react'
 import '../../styles/bannerfull.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Bannerfull = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const bannerImages = [
-      '../images/banners/banner_001_400.jpg',
+      '../images/banners/hero_banner.avif',
       '../images/banners/banner_002_400.jpg',
       '../images/banners/banner_003_400.jpg',
       '../images/banners/banner_004_400.jpg',
@@ -25,7 +26,7 @@ const Bannerfull = () => {
 
   return (
     <div className='banner-full-container'>
-      {bannerImages.map((image, index) => (     
+      {/* {bannerImages.map((image, index) => (     
         <img 
           key={index}
           src={image}
@@ -38,7 +39,11 @@ const Bannerfull = () => {
             transition: 'opacity 1s ease-in-out'
           }} 
         />
-      ))}
+      ))} */}
+
+      <LazyLoadImage className='banner-image' alt='' src={bannerImages[0]}/>
+      {/* <img src={bannerImages[0]} alt='banner image' /> */}
+
         <div className='text-area'>
             <div className='header'>
                 GO GO REACT

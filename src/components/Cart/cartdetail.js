@@ -79,7 +79,7 @@ export default function CartPageDetail(){
         handleGoToCheckoutClick: handleGoToCheckoutClick
     };
 
-    const hasData = cart && cart.id;
+    //const hasData = cart && cart.id;
 
     const emptycl = isLoading ? 'empty-item' : '';
   return (
