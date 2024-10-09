@@ -1,0 +1,18 @@
+.ym-block-container{
+    margin-top: 50px;
+
+    .ym-block-header{
+        font-size: 30px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .ym-block-body{
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        justify-content: center;
+    }
+}

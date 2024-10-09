@@ -3,8 +3,12 @@ import {} from '../../styles/productdetail.css';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { GetProductDetail } from '../../services/productAPI.js';
-import { Loader } from "../Loader/loader.js";
+import { Loader, LoaderToggle } from "../Loader/loader.js";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Youmayalsolike from './youmayalsolike.js';
+import { DoAddToCart, UpdateCartInfo } from '../Cart/cart.js';
+import CartPopupResult from '../Cart/cartPopupResult.js';
+import { AddToCartButton } from '../Buttons/addtocartbutton.js';
 
 const ProductContext = createContext();
 
@@ -43,6 +47,8 @@ export default function ProductDetail(){
                 <ProductContext.Provider value={product}>
                     <PDPHeader/>
                     <PdpSpectTab/>
+
+                    <Youmayalsolike currentProduct={product}/>
                 </ProductContext.Provider>
             </div>            
         </>
@@ -50,10 +56,23 @@ export default function ProductDetail(){
 }
 
 export function PDPHeader(){
+    const [cartProduct, setCartProduct] = useState(undefined);    
     const product = useContext(ProductContext);
+
+    const handleAddToCartClick = (product) => {
+        LoaderToggle(true);
+        DoAddToCart(product.id, product.sku, () => {
+            LoaderToggle(false, () => {
+                setTimeout(function(){ setCartProduct(product)}, 100);
+              });
+              UpdateCartInfo(null, 1);
+        });     
+    };       
 
   return (
     <>
+        { cartProduct && <CartPopupResult product={product} handleCallback={() => { setCartProduct(undefined)}}/> }
+
         <div className={'pdp-block pdp-header'}>
             <div className="pdp-header-image">
                 {product.images && <img src={product.images[0]} alt={product.title} /> }
@@ -63,6 +82,10 @@ export function PDPHeader(){
             <p className='pdp-header-category'>{product.category}</p>
             <p className='pdp-header-brand'>{product.brand}</p>
             <p className='pdp-header-description'>{product.description}</p>
+
+            <div className="pdp-add-to-cart-buttons-wrapper">
+                <AddToCartButton handleAddToCartClick={handleAddToCartClick} product={product}/>
+            </div>
         </div>    
     </>
   )

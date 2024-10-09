@@ -4,6 +4,7 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 500;
 
     .popup-result-bg{
         width: 100%;

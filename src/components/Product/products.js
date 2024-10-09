@@ -2,7 +2,6 @@ import '../../styles/product.css';
 
 import { useEffect, useState} from "react";
 import { toast } from 'react-toastify';
-import { DoAddToCart,UpdateCartInfo } from "../Cart/cart.js";
 import { GetPageInfo } from "../Pagination/paginationUtils.js";
 import { LoaderToggle } from "../Loader/loader.js";
 import { GetConfig, Pagination } from '../Pagination/pagination.js'
@@ -10,15 +9,14 @@ import { GetProductList,GetCategoryProduct } from '../../services/productAPI.js'
 import { useSearchParams } from "react-router-dom";
 import { Category, UpdateCategoryProductCount } from './category.js';
 import ProductCardItem from './productCard.js';
-import CartPopupResult from '../Cart/cartPopupResult.js';
 import ProductCardItemEmpty from './productCardEmpty.js';
+import Threecolumnblock from '../blocks/threecolumnblock.js';
 
 /*PRODUCT LISTING*/
 
 export default function Products(){
     const [products, setProducts] = useState([]);
     const [pageInfo, setPageInfo] = useState({pageSize:12, sorting:1});
-    const [cartProduct, setCartProduct] = useState(undefined);
     const [categorySelected, setCategorySelected] = useState(undefined);    
     const [searchParams, setSearchParams] = useSearchParams();
   
@@ -99,16 +97,6 @@ export default function Products(){
         queryData(1);        
     };
 
-    const handleAddToCartClick = (product) => {
-        LoaderToggle(true);
-        DoAddToCart(product.id, product.sku, () => {
-            LoaderToggle(false, () => {
-                setTimeout(function(){ setCartProduct(product)}, 100);
-              });
-              UpdateCartInfo(null, 1);
-        });     
-    };
-
     let catetory = categorySelected;
     if(!catetory && cat)
         catetory = cat;
@@ -149,7 +137,6 @@ export default function Products(){
 
     const gotData = products ? true : false;
     const config = GetConfig(false, gotData, pageInfo);
-    config.handleAddToCartClick = handleAddToCartClick;
     config.PageChanged = PageChanged;
     config.handleSortingChanged = handleSortingChanged;
     config.hideSortOption = false;
@@ -195,12 +182,12 @@ export default function Products(){
                 </div>
                 <div className='column right'>
                     <div className='product-container'>
-                    <ProductList config={config} products={products} emptyProducts={emptyProducts}/>
-                    </div> 
-                </div>
+                        <ProductList config={config} products={products} emptyProducts={emptyProducts}/>
+                    </div>                     
+                </div>       
             </div>
-
-            { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
+            
+            <Threecolumnblock/>            
         </>
     );
 }
@@ -208,11 +195,14 @@ export default function Products(){
 export function ProductList(props) {
   return (        
         <div className="product-list-container">
+            <div className='product-list-top'>
+                {props.config.pageInfo.total} entries
+            </div>
             <div className="product-flex">
                 {props.products && props.products.length > 0 ? 
                 <>
                     {props.products.map((p) => {
-                        return <ProductCardItem key = {p.id} product = {p} handleAddToCartClick={props.config.handleAddToCartClick}/>
+                        return <ProductCardItem key = {p.id} product = {p}/>
                     })}                
                 </> : 
                 <>

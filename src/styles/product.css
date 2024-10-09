@@ -31,6 +31,12 @@
     border: solid 1px #ffffff;
     min-height: 800px;
 
+    .product-list-top{
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
     .product-flex {
       display: flex;
       flex-wrap: wrap;

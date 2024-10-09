@@ -51,6 +51,11 @@
     .pdp-header-description{
         color: #616161;
     }
+
+    .pdp-add-to-cart-buttons-wrapper{
+        padding: 10px 0px;
+        margin-top: 50px;
+    }
 }
 
 .pdp-spec{
