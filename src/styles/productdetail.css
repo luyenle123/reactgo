@@ -21,7 +21,7 @@
         display: block;
         width: 300px;
         min-height: 310px;
-        border: solid 1px #cccccc69;
+        /* border: solid 1px #cccccc69; */
         border-radius: 10px;
         margin-right: 10px;
 
@@ -96,11 +96,13 @@
     .pdp-tab-header{
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: left;
         border-bottom: solid 1px #ccc;
 
         .pdp-tab-header-item{
-            padding: 10px 30px;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
             background-color: #e6e6e6;
             cursor: pointer;
         }

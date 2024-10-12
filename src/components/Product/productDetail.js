@@ -9,6 +9,7 @@ import Youmayalsolike from './youmayalsolike.js';
 import { DoAddToCart, UpdateCartInfo } from '../Cart/cart.js';
 import CartPopupResult from '../Cart/cartPopupResult.js';
 import { AddToCartButton } from '../Buttons/addtocartbutton.js';
+import Threecolumnblock from '../blocks/threecolumnblock.js';
 
 const ProductContext = createContext();
 
@@ -50,7 +51,9 @@ export default function ProductDetail(){
 
                     <Youmayalsolike currentProduct={product}/>
                 </ProductContext.Provider>
-            </div>            
+            </div>
+
+            <Threecolumnblock/>            
         </>
     );
 }
@@ -106,7 +109,7 @@ export function PdpSpectTab(){
     <>
         <div className='pdp-tab-wrapper'>
             <div className='pdp-tab-header'>
-                <div className={'pdp-tab-header-item ' + actvie1} onClick={() => tabChanged(1)}>Spec</div>
+                <div className={'pdp-tab-header-item ' + actvie1} onClick={() => tabChanged(1)}>Specification</div>
                 <div className={'pdp-tab-header-item ' + actvie2} onClick={() => tabChanged(2)}>Gallary</div>
                 <div className={'pdp-tab-header-item ' + actvie3} onClick={() => tabChanged(3)}>Review</div>
             </div>
@@ -155,9 +158,9 @@ export function Gallery(){
         <>
             <div className={'pdp-gallery'}>
                 {product.images.map((img, i) => 
-                <>
-                    <LazyLoadImage className='product-image' alt='gallery image' src={img} key={i} width={300} height={300}/>
-                </> )}
+                <div key={i}>
+                    <LazyLoadImage className='product-image' alt='gallery image' src={img} width={300} height={300}/>
+                </div> )}
             </div>        
         </>
     );
